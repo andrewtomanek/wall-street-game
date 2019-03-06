@@ -90,7 +90,7 @@ export default {
         stockPortfolio: this.$store.getters.stockPortfolio,
         stocks: this.$store.getters.stocks
       };
-      this.$http.put("data.json", data);
+      this.$http.put("data.json" + "?auth=" + this.$store.state.idToken, data);
     },
     loadData() {
       this.fetchData();
