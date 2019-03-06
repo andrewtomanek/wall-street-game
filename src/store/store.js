@@ -33,9 +33,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    loadData({ commit }) {
+    loadData({ commit, state }) {
       Vue.http
-        .get("data.json")
+        .get("data.json" + "?auth=" + state.idToken)
         .then(response => response.json())
         .then(data => {
           if (data) {
