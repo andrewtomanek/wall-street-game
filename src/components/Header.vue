@@ -32,30 +32,30 @@
           </li>
         </ul>
       </div>
+      <!-- /.navbar-collapse -->
+      <!-- /.container-fluid -->
+      <header id="header">
+        <div class="logo">
+          <router-link to="/">Vue - Complete Guide</router-link>
+        </div>
+        <nav>
+          <ul>
+            <li v-if="!auth">
+              <router-link to="/signup">Sign Up</router-link>
+            </li>
+            <li v-if="!auth">
+              <router-link to="/signin">Sign In</router-link>
+            </li>
+            <li v-if="auth">
+              <router-link to="/dashboard">Dashboard</router-link>
+            </li>
+            <li v-if="auth">
+              <button @click="onLogout" class="logout">Logout</button>
+            </li>
+          </ul>
+        </nav>
+      </header>
     </div>
-    <!-- /.navbar-collapse -->
-    <!-- /.container-fluid -->
-    <header id="header">
-      <div class="logo">
-        <router-link to="/">Vue - Complete Guide</router-link>
-      </div>
-      <nav>
-        <ul>
-          <li v-if="!auth">
-            <router-link to="/signup">Sign Up</router-link>
-          </li>
-          <li v-if="!auth">
-            <router-link to="/signin">Sign In</router-link>
-          </li>
-          <li v-if="auth">
-            <router-link to="/dashboard">Dashboard</router-link>
-          </li>
-          <li v-if="auth">
-            <button @click="onLogout" class="logout">Logout</button>
-          </li>
-        </ul>
-      </nav>
-    </header>
   </nav>
 </template>
 
@@ -91,7 +91,6 @@ export default {
         stocks: this.$store.getters.stocks
       };
       this.$http.put("data.json", data);
-      console.log(data);
     },
     loadData() {
       this.fetchData();

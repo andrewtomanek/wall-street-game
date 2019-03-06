@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "../axios-auth";
 import globalAxios from "axios";
-import router from "../router";
+import router from "../main";
 
 import stocks from "./modules/stocks";
 import portfolio from "./modules/portfolio";
@@ -130,7 +130,7 @@ export default new Vuex.Store({
       localStorage.removeItem("userId");
       router.replace("/signin");
     },
-    storeUser({ commit, state }, userData) {
+    storeUser({ state }, userData) {
       if (!state.idToken) {
         return;
       }
