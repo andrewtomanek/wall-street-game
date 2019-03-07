@@ -14,6 +14,7 @@ export const routes = [
   { path: "/signin", component: SigninPage },
   {
     path: "/dashboard",
+    name: "dashboard",
     component: DashboardPage,
     beforeEnter(to, from, next) {
       if (store.state.idToken) {
