@@ -143,7 +143,6 @@ export default new Vuex.Store({
       }
       globalAxios
         .post("/users.json" + "?auth=" + state.idToken, userData)
-        .then(res => console.log(res))
         .catch(error => console.log(error));
     },
     fetchUser({ commit, state }) {

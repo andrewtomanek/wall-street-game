@@ -1,6 +1,6 @@
 <template>
-  <nav class="nav__header">
-    <div class="nav__box">
+  <header>
+    <nav class="nav__box">
       <div class="nav__links">
         <router-link to="/" class="navbar-brand">Stock Trader</router-link>
         <router-link
@@ -17,10 +17,15 @@
           tag="div"
           ><a class="nav__link">Stocks</a></router-link
         >
+        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
+        <router-link v-if="!auth" to="/signin">Sign In</router-link>
+        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
       </div>
-      <div class="nav__panel">
-        <span class="nav__data">Funds: {{ funds | currency }}</span>
+      <div v-if="auth" class="nav__panel">
         <ul class="nav__menu">
+          <li class="nav__menu-item">
+            <router-link to="/dashboard">Dashboard</router-link>
+          </li>
           <li class="nav__menu-item">
             <a class="nav__link" href="#" @click="endDay">End Day</a>
           </li>
@@ -32,31 +37,8 @@
           </li>
         </ul>
       </div>
-      <!-- /.navbar-collapse -->
-      <!-- /.container-fluid -->
-      <header id="header">
-        <div class="logo">
-          <router-link to="/">Vue - Complete Guide</router-link>
-        </div>
-        <nav>
-          <ul>
-            <li v-if="!auth">
-              <router-link to="/signup">Sign Up</router-link>
-            </li>
-            <li v-if="!auth">
-              <router-link to="/signin">Sign In</router-link>
-            </li>
-            <li v-if="auth">
-              <router-link to="/dashboard">Dashboard</router-link>
-            </li>
-            <li v-if="auth">
-              <button @click="onLogout" class="logout">Logout</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </div>
-  </nav>
+    </nav>
+  </header>
 </template>
 
 <script>
