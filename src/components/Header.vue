@@ -275,4 +275,16 @@ nav a.router-link-exact-active {
 .nav__menu-item {
   border-bottom: 0.5rem solid transparent;
 }
+
+.logout {
+  background-color: var(--red);
+  color: white;
+  border-bottom: 0.5rem solid transparent;
+  padding: 0.5rem 0.3rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: "Tahoma";
+  text-align: center;
+  text-decoration: none;
+}
 </style>

@@ -15,12 +15,16 @@ export default new Vuex.Store({
     portfolio
   },
   state: {
+    vallet: 100000,
     idToken: null,
     userId: null,
     user: null,
     email: null
   },
   mutations: {
+    storeVallet(state, vallet) {
+      state.vallet = vallet;
+    },
     authUser(state, userData) {
       state.idToken = userData.token;
       state.userId = userData.userId;
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateVallet({ commit }, vallet) {
+      commit("storeVallet", vallet);
+    },
     loadData({ commit, state }) {
       Vue.http
         .get("data.json" + "?auth=" + state.idToken)
@@ -168,6 +175,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getVallet(state) {
+      return state.vallet;
+    },
     user(state) {
       return state.user;
     },

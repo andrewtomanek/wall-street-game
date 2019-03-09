@@ -1,53 +1,58 @@
 <template>
   <div class="col-sm-6 col-md-4">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          {{ stock.name }}
-          <small>(Price: {{ stock.price }})</small>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <div class="pull-left">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Quantity"
-            v-model.number="quantity"
-            :class="{ danger: insufficientFunds }"
-          />
-        </div>
-        <div class="pull-right">
-          <button
-            class="btn btn-success"
-            @click="buyStock"
-            :disabled="
-              insufficientFunds || quantity <= 0 || !Number.isInteger(quantity)
-            "
-          >
-            {{ insufficientFunds ? "Insufficient Funds" : "Buy" }}
-          </button>
-        </div>
-      </div>
+    <div class="dash__currency-display-box">
+      <button @click="purchaseForex()" class="select__button">
+        Buy
+      </button>
+      <span class="dash__currency-display"
+        >Bought Currency: {{ boughtQuantity }}</span
+      >
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Quantity"
+        v-model.number="buyQuantity"
+      />
+    </div>
+    <div class="dash__currency-display-box">
+      <button @click="resellForex()" class="select__button">
+        Sell
+      </button>
+      <span class="dash__currency-display"
+        >Sold Currency: {{ soldQuantity }}</span
+      >
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Quantity"
+        v-model.number="sellQuantity"
+      />
     </div>
   </div>
 </template>
 
-<style scoped>
-.danger {
-  border: 1px solid red;
-}
-</style>
-
 <script>
+import Vue from "vue";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: ["stock"],
   data() {
     return {
-      quantity: 0
+      quantity: 0,
+      currencyRate: null,
+      purchase: null,
+      resell: null,
+      buyQuantity: null,
+      sellQuantity: null,
+      boughtQuantity: null,
+      soldQuantity: null,
+      from_currency: "USD",
+      to_currency: "EUR"
     };
   },
   computed: {
+    ...mapGetters(["getVallet"]),
     funds() {
       return this.$store.getters.funds;
     },
@@ -56,6 +61,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["updateVallet"]),
     buyStock() {
       const order = {
         stockId: this.stock.id,
@@ -64,7 +70,35 @@ export default {
       };
       this.$store.dispatch("buyStock", order);
       this.quantity = 0;
+    },
+    purchaseForex() {
+      this.boughtQuantity = this.currencyRate * this.buyQuantity;
+      this.purchase = this.$store.getters.getVallet - this.boughtQuantity;
+      this.$store.dispatch("updateVallet", this.purchase);
+    },
+    resellForex() {
+      this.soldQuantity = this.currencyRate * this.sellQuantity;
+      this.resell = this.$store.getters.getVallet + this.soldQuantity;
+      this.$store.dispatch("updateVallet", this.resell);
     }
+  },
+  created() {
+    Vue.http
+      .get(
+        `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
+          this.from_currency
+        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
+      )
+      .then(data => {
+        this.currencyRate =
+          data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+      });
   }
 };
 </script>
+
+<style scoped>
+.danger {
+  border: 1px solid red;
+}
+</style>
