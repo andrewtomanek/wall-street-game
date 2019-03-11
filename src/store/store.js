@@ -15,6 +15,12 @@ export default new Vuex.Store({
     portfolio
   },
   state: {
+    currencies: [
+      { id: 1, name: "USD", price: 110 },
+      { id: 2, name: "EUR", price: 200 },
+      { id: 3, name: "CZK", price: 250 },
+      { id: 4, name: "GBP", price: 8 }
+    ],
     vallet: 100000,
     idToken: null,
     userId: null,
@@ -22,6 +28,9 @@ export default new Vuex.Store({
     email: null
   },
   mutations: {
+    setCurrencies(state, currencies) {
+      state.currencies = currencies;
+    },
     storeVallet(state, vallet) {
       state.vallet = vallet;
     },
@@ -41,6 +50,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    initCurrencies: ({ commit }) => {
+      commit("setCurrencies", currencies);
+    },
     updateVallet({ commit }, vallet) {
       commit("storeVallet", vallet);
     },
@@ -175,6 +187,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getCurrencies(state) {
+      return state.currencies;
+    },
     getVallet(state) {
       return state.vallet;
     },

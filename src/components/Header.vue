@@ -17,6 +17,13 @@
           tag="div"
           ><a class="nav__link">Stocks</a></router-link
         >
+        <router-link
+          to="/currencies"
+          class="link__box"
+          activeClass="active"
+          tag="div"
+          ><a class="nav__link">Currencies</a></router-link
+        >
         <router-link v-if="!auth" to="/signup">Sign Up</router-link>
         <router-link v-if="!auth" to="/signin">Sign In</router-link>
         <button v-if="auth" @click="onLogout" class="logout">Logout</button>
