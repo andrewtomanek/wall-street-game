@@ -17,6 +17,7 @@ export default {
   },
   created() {
     this.$store.dispatch("initStocks");
+    this.$store.dispatch("initCurrencies");
     this.$store.dispatch("tryAutoLogin");
   }
 };

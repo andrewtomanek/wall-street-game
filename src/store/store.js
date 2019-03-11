@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import axios from "../axios-auth";
 import globalAxios from "axios";
 import router from "../main";
-
+import currencies from "../data/currencies";
 import stocks from "./modules/stocks";
 import portfolio from "./modules/portfolio";
 
@@ -15,12 +15,7 @@ export default new Vuex.Store({
     portfolio
   },
   state: {
-    currencies: [
-      { id: 1, name: "USD", price: 110 },
-      { id: 2, name: "EUR", price: 200 },
-      { id: 3, name: "CZK", price: 250 },
-      { id: 4, name: "GBP", price: 8 }
-    ],
+    currencies: [],
     vallet: 100000,
     idToken: null,
     userId: null,
@@ -28,6 +23,27 @@ export default new Vuex.Store({
     email: null
   },
   mutations: {
+    buyCurrency(state, { currencyId, quantity, currencyPrice }) {
+      const record = state.currencies.find(element => element.id == currencyId);
+      if (record) {
+        record.quantity += quantity;
+      } else {
+        state.currencies.push({
+          id: currencyId,
+          quantity: quantity
+        });
+      }
+      state.vallet -= currencyPrice * quantity;
+    },
+    sellCurrency(state, { currencyId, quantity, currencyPrice }) {
+      const record = state.currencies.find(element => element.id == currencyId);
+      if (record.quantity > quantity) {
+        record.quantity -= quantity;
+      } else {
+        state.currencies.splice(state.currencies.indexOf(record), 1);
+      }
+      state.vallet += currencyPrice * quantity;
+    },
     setCurrencies(state, currencies) {
       state.currencies = currencies;
     },
@@ -50,6 +66,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    buyCurrency: ({ commit }, order) => {
+      commit("buyCurrency", order);
+    },
+    sellCurrency({ commit }, order) {
+      commit("sellCurrency", order);
+    },
     initCurrencies: ({ commit }) => {
       commit("setCurrencies", currencies);
     },
@@ -201,6 +223,19 @@ export default new Vuex.Store({
     },
     isAuthenticated(state) {
       return state.idToken !== null;
+    },
+    getCurrenciesCart(state, getters) {
+      return state.currencies.map(currency => {
+        const record = getters.getCurrencies.find(
+          element => element.id == currency.id
+        );
+        return {
+          id: currency.id,
+          quantity: currency.quantity,
+          name: record.name,
+          price: record.price
+        };
+      });
     }
   }
 });

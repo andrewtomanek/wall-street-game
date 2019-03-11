@@ -18,6 +18,13 @@
           ><a class="nav__link">Stocks</a></router-link
         >
         <router-link
+          to="/currenciescart"
+          class="link__box"
+          activeClass="active"
+          tag="div"
+          ><a class="nav__link">Cart</a></router-link
+        >
+        <router-link
           to="/currencies"
           class="link__box"
           activeClass="active"

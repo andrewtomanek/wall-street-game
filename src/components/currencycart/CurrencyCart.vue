@@ -8,23 +8,22 @@
         {{ currency.price }}
       </div>
       <span class="currency__display"
-        >Bought Currency: {{ currency.quantity }}</span
+        >Sold Currency: {{ currency.quantity }}</span
       >
       <input
         type="number"
         class="form__control"
         placeholder="Quantity"
-        v-model.number="buyQuantity"
+        v-model.number="sellQuantity"
       />
-      <button @click="purchaseForex()" class="select__button">
-        Buy
+      <button @click="resellForex()" class="select__button">
+        Sell
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -33,34 +32,22 @@ export default {
     return {
       quantity: 0,
       currencyRate: null,
-      buyQuantity: 0,
+      sellQuantity: 0,
       from_currency: "USD",
       to_currency: "EUR"
     };
   },
   methods: {
-    ...mapActions(["buyCurrency"]),
-    purchaseForex() {
+    ...mapActions(["sellCurrency"]),
+    resellForex() {
       const order = {
         currencyId: this.currency.id,
-        currencyPrice: this.currencyRate,
-        quantity: this.buyQuantity
+        currencyPrice: this.currency.price,
+        quantity: this.sellQuantity
       };
-      this.$store.dispatch("buyCurrency", order);
-      this.quantity = 0;
+      this.sellCurrency(order);
+      this.sellQuantity = 0;
     }
-  },
-  created() {
-    Vue.http
-      .get(
-        `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
-          this.from_currency
-        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
-      )
-      .then(data => {
-        this.currencyRate =
-          data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-      });
   }
 };
 </script>

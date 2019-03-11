@@ -16,17 +16,17 @@
 </template>
 
 <script>
-import Currency from "./Currency.vue";
+import CurrencyCart from "./CurrencyCart.vue";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    appCurrency: Currency
+    appCurrency: CurrencyCart
   },
   computed: {
-    ...mapGetters(["getVallet", "getCurrencies"]),
+    ...mapGetters(["getVallet", "getCurrenciesCart"]),
     currencies() {
-      return this.$store.getters.getCurrencies;
+      return this.$store.getters.getCurrenciesCart;
     },
     currencyVallet() {
       return this.$store.getters.getVallet;
@@ -34,25 +34,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.dash__currency-display-box {
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 0.8rem 0.5rem;
-  justify-items: center;
-  align-items: center;
-  justify-content: space-evenly;
-  align-content: space-around;
-  background: hsla(179, 97%, 97%, 1);
-}
-
-.dash__currency-display {
-  width: 100%;
-  color: hsla(22, 50%, 48%, 1);
-  background-color: black;
-  font-size: 1rem;
-  padding: 0.5rem;
-  color: white;
-}
-</style>
