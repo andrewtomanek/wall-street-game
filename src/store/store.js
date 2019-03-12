@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import axios from "../axios-auth";
 import globalAxios from "axios";
 import router from "../main";
-import currencies from "../data/currencies";
 import stocks from "./modules/stocks";
 import portfolio from "./modules/portfolio";
 
@@ -16,14 +15,14 @@ export default new Vuex.Store({
   },
   state: {
     currencies: [],
-    vallet: 100000,
+    vallet: 10000,
     idToken: null,
     userId: null,
     user: null,
     email: null
   },
   mutations: {
-    buyCurrency(state, { currencyId, quantity, currencyPrice }) {
+    buyCurrency(state, { currencyId, quantity }) {
       const record = state.currencies.find(element => element.id == currencyId);
       if (record) {
         record.quantity += quantity;
@@ -33,16 +32,26 @@ export default new Vuex.Store({
           quantity: quantity
         });
       }
-      state.vallet -= currencyPrice * quantity;
+      let tempVallet = 0;
+      for (let item of state.currencies) {
+        tempVallet += item.rate * item.quantity;
+        console.log(state.vallet, item.rate, item.quantity);
+      }
+      state.vallet -= tempVallet;
     },
-    sellCurrency(state, { currencyId, quantity, currencyPrice }) {
+    sellCurrency(state, { currencyId, quantity }) {
       const record = state.currencies.find(element => element.id == currencyId);
       if (record.quantity > quantity) {
         record.quantity -= quantity;
       } else {
         state.currencies.splice(state.currencies.indexOf(record), 1);
       }
-      state.vallet += currencyPrice * quantity;
+      let tempVallet = 0;
+      for (let item of state.currencies) {
+        tempVallet += item.rate * item.quantity;
+        console.log(state.vallet, item.rate, item.quantity);
+      }
+      state.vallet += tempVallet;
     },
     setCurrencies(state, currencies) {
       state.currencies = currencies;
@@ -73,6 +82,27 @@ export default new Vuex.Store({
       commit("sellCurrency", order);
     },
     initCurrencies: ({ commit }) => {
+      let currencies = [
+        { id: 1, name: "EUR", rate: 1, quantity: 0 },
+        { id: 2, name: "CNY", rate: 2, quantity: 0 },
+        { id: 3, name: "GBP", rate: 3, quantity: 0 },
+        { id: 4, name: "CZK", rate: 4, quantity: 0 }
+      ];
+
+      for (let item of currencies) {
+        Vue.http
+          .get(
+            `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${
+              item.name
+            }&apikey=KFUX4FTWY91NEYKL`
+          )
+          .then(data => {
+            item.rate = +data.body["Realtime Currency Exchange Rate"][
+              "5. Exchange Rate"
+            ];
+            console.log(item.rate);
+          });
+      }
       commit("setCurrencies", currencies);
     },
     updateVallet({ commit }, vallet) {
@@ -233,7 +263,7 @@ export default new Vuex.Store({
           id: currency.id,
           quantity: currency.quantity,
           name: record.name,
-          price: record.price
+          rate: record.rate
         };
       });
     }

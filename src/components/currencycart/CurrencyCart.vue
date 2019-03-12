@@ -4,8 +4,8 @@
       <div class="currency__name">
         {{ currency.name }}
       </div>
-      <div class="currency__price">
-        {{ currency.price }}
+      <div class="currency__rate">
+        {{ currency.rate }}
       </div>
       <span class="currency__display"
         >Sold Currency: {{ currency.quantity }}</span
@@ -42,7 +42,7 @@ export default {
     resellForex() {
       const order = {
         currencyId: this.currency.id,
-        currencyPrice: this.currency.price,
+        currencyRate: this.currency.rate,
         quantity: this.sellQuantity
       };
       this.sellCurrency(order);
@@ -82,7 +82,7 @@ export default {
   color: white;
 }
 
-.currency__price {
+.currency__rate {
   width: 100%;
   color: hsla(22, 50%, 48%, 1);
   background-color: black;

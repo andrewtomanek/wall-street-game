@@ -231,8 +231,7 @@ nav a.router-link-exact-active {
 }
 
 .nav__link {
-  background-color: var(--red);
-  color: white;
+  background-color: hsla(0, 0%, 0%, 1);
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
@@ -243,8 +242,8 @@ nav a.router-link-exact-active {
 }
 
 .nav__link:hover {
-  background-color: var(--red);
-  color: white;
+  background-color: var(--grey);
+  color: hsla(0, 0%, 0%, 1);
   border-bottom: 0.3rem solid white;
 }
 

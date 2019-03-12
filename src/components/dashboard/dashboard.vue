@@ -5,39 +5,8 @@
       <span class="dash__currency-display" v-if="email"
         >Your email address: {{ email }}</span
       >
-      <span class="dash__currency-display">Funds: {{ funds | currency }}</span>
-      <span class="dash__currency-display"
-        >Vallet: {{ currencyVallet }} Credits</span
-      >
     </div>
-    <div class="dash__currency-display-box">
-      <button @click="purchaseForex()" class="select__button">
-        Buy
-      </button>
-      <span class="dash__currency-display"
-        >Bought Currency: {{ boughtQuantity }}</span
-      >
-      <input
-        type="number"
-        class="form-control"
-        placeholder="Quantity"
-        v-model.number="buyQuantity"
-      />
-    </div>
-    <div class="dash__currency-display-box">
-      <button @click="resellForex()" class="select__button">
-        Sell
-      </button>
-      <span class="dash__currency-display"
-        >Sold Currency: {{ soldQuantity }}</span
-      >
-      <input
-        type="number"
-        class="form-control"
-        placeholder="Quantity"
-        v-model.number="sellQuantity"
-      />
-    </div>
+
     <div class="dash__currency-display-box">
       <span class="dash__currency-display">From {{ from_currency }}</span>
       <span class="dash__currency-display">Rate: {{ forex }}</span>
@@ -402,11 +371,6 @@ export default {
   data() {
     return {
       forex: null,
-      vallet: 100000,
-      buyQuantity: null,
-      sellQuantity: null,
-      boughtQuantity: null,
-      soldQuantity: null,
       from_currency: "USD",
       to_currency: "EUR"
     };
@@ -424,39 +388,12 @@ export default {
             data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
         });
       return this.forex;
-    },
-    purchaseForex() {
-      this.boughtQuantity = this.currencyRate * this.buyQuantity;
-      this.vallet -= this.boughtQuantity;
-    },
-    resellForex() {
-      this.soldQuantity = this.currencyRate * this.sellQuantity;
-      this.vallet += this.soldQuantity;
     }
   },
   computed: {
     email() {
       return !this.$store.getters.email ? false : this.$store.getters.email;
-    },
-    currencyVallet() {
-      return this.vallet;
-    },
-    funds() {
-      return this.$store.getters.funds;
     }
-  },
-  created() {
-    this.$store.dispatch("fetchUser");
-    Vue.http
-      .get(
-        `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
-          this.from_currency
-        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
-      )
-      .then(data => {
-        this.currencyRate =
-          data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-      });
   }
 };
 </script>

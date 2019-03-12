@@ -4,8 +4,8 @@
       <div class="currency__name">
         {{ currency.name }}
       </div>
-      <div class="currency__price">
-        {{ currency.price }}
+      <div class="currency__rate">
+        {{ currency.rate }}
       </div>
       <span class="currency__display"
         >Bought Currency: {{ currency.quantity }}</span
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -43,24 +42,12 @@ export default {
     purchaseForex() {
       const order = {
         currencyId: this.currency.id,
-        currencyPrice: this.currencyRate,
+        currencyRate: this.currency.currencyRate,
         quantity: this.buyQuantity
       };
       this.$store.dispatch("buyCurrency", order);
       this.quantity = 0;
     }
-  },
-  created() {
-    Vue.http
-      .get(
-        `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
-          this.from_currency
-        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
-      )
-      .then(data => {
-        this.currencyRate =
-          data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-      });
   }
 };
 </script>
@@ -95,7 +82,7 @@ export default {
   color: white;
 }
 
-.currency__price {
+.currency__rate {
   width: 100%;
   color: hsla(22, 50%, 48%, 1);
   background-color: black;
