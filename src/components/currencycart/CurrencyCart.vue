@@ -43,7 +43,8 @@ export default {
       const order = {
         currencyId: this.currency.id,
         currencyRate: this.currency.rate,
-        quantity: this.sellQuantity
+        quantity: this.sellQuantity,
+        oldQuantity: this.currency.quantity
       };
       this.sellCurrency(order);
       this.sellQuantity = 0;

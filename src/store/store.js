@@ -23,42 +23,32 @@ export default new Vuex.Store({
   },
   mutations: {
     buyCurrency(state, { currencyId, quantity, oldQuantity }) {
-      // const record = state.currencies.find(element => element.id == currencyId);
-      // if (record) {
-      //   record.quantity += quantity;
-      // } else {
-      //   state.currencies.push({
-      //     id: currencyId,
-      //     quantity: quantity
-      //   });
-      // }
-      let tempVallet = state.vallet;
+      let buyVallet = state.vallet;
       for (let item of state.currencies) {
         if (currencyId === item.id) {
-          tempVallet -= item.rate * quantity;
-          if (tempVallet > 0) {
+          buyVallet -= item.rate * quantity;
+          if (buyVallet > 0) {
             item.quantity += quantity;
-            state.vallet = tempVallet;
+            state.vallet = buyVallet;
           } else {
             item.quantity = oldQuantity;
           }
         }
-        console.log(state.vallet, item.rate, item.quantity);
       }
     },
-    sellCurrency(state, { currencyId, quantity }) {
-      const record = state.currencies.find(element => element.id == currencyId);
-      if (record.quantity > quantity) {
-        record.quantity -= quantity;
-      } else {
-        state.currencies.splice(state.currencies.indexOf(record), 1);
-      }
-      let tempVallet = 0;
+    sellCurrency(state, { currencyId, quantity, oldQuantity }) {
+      let sellVallet = state.vallet;
       for (let item of state.currencies) {
-        tempVallet += item.rate * item.quantity;
-        console.log(state.vallet, item.rate, item.quantity);
+        if (currencyId === item.id) {
+          if (item.quantity >= quantity) {
+            sellVallet += item.rate * quantity;
+            item.quantity -= quantity;
+            state.vallet = sellVallet;
+          } else {
+            item.quantity = oldQuantity;
+          }
+        }
       }
-      state.vallet += tempVallet;
     },
     setCurrencies(state, currencies) {
       state.currencies = currencies;
@@ -106,7 +96,6 @@ export default new Vuex.Store({
           .then(data => {
             let rateData =
               data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-            console.log(rateData);
             if (rateData) {
               item.rate = +rateData;
             }
