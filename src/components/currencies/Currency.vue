@@ -5,6 +5,9 @@
         {{ currency.name }}
       </div>
       <div class="currency__rate">
+        {{ currency.symbol }}
+      </div>
+      <div class="currency__rate">
         {{ currency.rate }}
       </div>
       <div class="currency__rate">
@@ -15,7 +18,9 @@
         type="number"
         class="form__control"
         placeholder="Quantity"
+        min="0"
         v-model.number="buyQuantity"
+        :class="{ invalid: this.buyQuantity < 0 }"
       />
       <button @click="purchaseForex()" class="select__button">
         Buy
@@ -32,15 +37,15 @@ export default {
   data() {
     return {
       quantity: 0,
-      currencyRate: null,
-      buyQuantity: 0,
-      from_currency: "USD",
-      to_currency: "EUR"
+      buyQuantity: 0
     };
   },
   methods: {
     ...mapActions(["buyCurrency"]),
     purchaseForex() {
+      if (this.buyQuantity < 0) {
+        return;
+      }
       const order = {
         currencyId: this.currency.id,
         currencyRate: this.currency.currencyRate,
@@ -111,7 +116,7 @@ export default {
   background-color: black;
   font-size: 1rem;
   padding: 0.3rem;
-  background-color: white;
+  color: white;
   cursor: pointer;
 }
 
@@ -125,8 +130,10 @@ export default {
   cursor: pointer;
 }
 
-.danger {
-  border: 1px solid red;
+.invalid {
+  border: 0.1rem solid red;
+  background-color: red;
+  color: white;
 }
 
 .currency__container {

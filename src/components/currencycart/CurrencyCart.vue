@@ -5,6 +5,9 @@
         {{ currency.name }}
       </div>
       <div class="currency__rate">
+        {{ currency.symbol }}
+      </div>
+      <div class="currency__rate">
         {{ currency.rate }}
       </div>
       <span class="currency__display"
@@ -14,7 +17,9 @@
         type="number"
         class="form__control"
         placeholder="Quantity"
+        min="0"
         v-model.number="sellQuantity"
+        :class="{ invalid: this.sellQuantity < 0 }"
       />
       <button @click="resellForex()" class="select__button">
         Sell
@@ -31,15 +36,13 @@ export default {
   data() {
     return {
       quantity: 0,
-      currencyRate: null,
-      sellQuantity: 0,
-      from_currency: "USD",
-      to_currency: "EUR"
+      sellQuantity: 0
     };
   },
   methods: {
     ...mapActions(["sellCurrency"]),
     resellForex() {
+      if (this.sellQuantity < 0) return;
       const order = {
         currencyId: this.currency.id,
         currencyRate: this.currency.rate,
@@ -109,8 +112,7 @@ export default {
 }
 
 .form__control {
-  width: 100%;
-  height: 100%;
+  width: 5rem;
   background-color: black;
   font-size: 1rem;
   padding: 0.3rem;
@@ -128,8 +130,10 @@ export default {
   cursor: pointer;
 }
 
-.danger {
-  border: 1px solid red;
+.invalid {
+  border: 0.1rem solid red;
+  background-color: red;
+  color: white;
 }
 
 .currency__container {
