@@ -34,6 +34,9 @@
         <router-link v-if="!auth" to="/signup">Sign Up</router-link>
         <router-link v-if="!auth" to="/signin">Sign In</router-link>
         <button v-if="auth" @click="onLogout" class="logout">Logout</button>
+        <span class="dash__currency-display"
+          >Funds: {{ funds.toFixed(2) }}$</span
+        >
       </div>
       <div v-if="auth" class="nav__panel">
         <ul class="nav__menu">

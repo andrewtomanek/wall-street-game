@@ -20,7 +20,6 @@ export default new Vuex.Store({
   },
   mutations: {
     buyStock(state, { stockId, quantity, stockPrice }) {
-      console.log(stockId, quantity, stockPrice);
       const record = state.stocks.find(element => element.id == stockId);
       if (record) {
         record.quantity += quantity;
@@ -30,7 +29,6 @@ export default new Vuex.Store({
           quantity: quantity
         });
       }
-      console.table(state.stocks);
       state.funds -= stockPrice * quantity;
     },
     sellStock(state, { stockId, quantity, stockPrice }) {
@@ -38,7 +36,7 @@ export default new Vuex.Store({
       if (record.quantity > quantity) {
         record.quantity -= quantity;
       } else {
-        state.stocks.splice(state.stocks.indexOf(record), 1);
+        record.quantity = 0;
       }
       state.funds += stockPrice * quantity;
     },
@@ -55,13 +53,13 @@ export default new Vuex.Store({
       });
     },
     buyCurrency(state, { currencyId, quantity, oldQuantity }) {
-      let buyVallet = state.vallet;
+      let buyVallet = state.funds;
       for (let item of state.currencies) {
         if (currencyId === item.id) {
           buyVallet -= item.rate * quantity;
           if (buyVallet > 0) {
             item.quantity += quantity;
-            state.vallet = buyVallet;
+            state.funds = buyVallet;
           } else {
             item.quantity = oldQuantity;
           }
@@ -69,13 +67,13 @@ export default new Vuex.Store({
       }
     },
     sellCurrency(state, { currencyId, quantity, oldQuantity }) {
-      let sellVallet = state.vallet;
+      let sellVallet = state.funds;
       for (let item of state.currencies) {
         if (currencyId === item.id) {
           if (item.quantity >= quantity) {
             sellVallet += item.rate * quantity;
             item.quantity -= quantity;
-            state.vallet = sellVallet;
+            state.funds = sellVallet;
           } else {
             item.quantity = oldQuantity;
           }
@@ -86,7 +84,7 @@ export default new Vuex.Store({
       state.currencies = currencies;
     },
     storeVallet(state, vallet) {
-      state.vallet = vallet;
+      state.funds = vallet;
     },
     authUser(state, userData) {
       state.idToken = userData.token;
@@ -326,8 +324,8 @@ export default new Vuex.Store({
     getCurrencies(state) {
       return state.currencies;
     },
-    getVallet(state) {
-      return state.vallet;
+    funds(state) {
+      return state.funds;
     },
     user(state) {
       return state.user;

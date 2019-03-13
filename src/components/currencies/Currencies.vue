@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="dash__currency-display-box">
-      <span class="dash__currency-display"
-        >Vallet: {{ currencyVallet }} Credits</span
-      >
-    </div>
     <div class="currency__display-box">
       <div class="currency__name">
         name
@@ -36,12 +31,9 @@ export default {
     appCurrency: Currency
   },
   computed: {
-    ...mapGetters(["getVallet", "getCurrencies"]),
+    ...mapGetters(["getCurrencies"]),
     currencies() {
       return this.$store.getters.getCurrencies;
-    },
-    currencyVallet() {
-      return this.$store.getters.getVallet;
     }
   }
 };
