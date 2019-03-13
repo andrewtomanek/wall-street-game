@@ -7,9 +7,10 @@
       <div class="currency__rate">
         {{ currency.rate }}
       </div>
-      <span class="currency__display"
-        >Bought Currency: {{ currency.quantity }}</span
-      >
+      <div class="currency__rate">
+        {{ currency.rate * currency.quantity }}
+      </div>
+      <span class="currency__display"> {{ currency.quantity }}</span>
       <input
         type="number"
         class="form__control"
@@ -62,12 +63,11 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
-  background: hsla(179, 97%, 97%, 1);
+  background-color: var(--grey);
 }
 
 .currency__display {
   width: 100%;
-  color: hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
@@ -76,7 +76,6 @@ export default {
 
 .currency__name {
   width: 100%;
-  color: hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
@@ -85,7 +84,6 @@ export default {
 
 .currency__rate {
   width: 100%;
-  color: hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
@@ -109,12 +107,11 @@ export default {
 }
 
 .form__control {
-  width: 100%;
-  height: 100%;
+  width: 5rem;
   background-color: black;
   font-size: 1rem;
   padding: 0.3rem;
-  color: white;
+  background-color: white;
   cursor: pointer;
 }
 
