@@ -43,7 +43,8 @@ export default {
       const order = {
         currencyId: this.currency.id,
         currencyRate: this.currency.currencyRate,
-        quantity: this.buyQuantity
+        quantity: this.buyQuantity,
+        oldQuantity: this.currency.quantity
       };
       this.$store.dispatch("buyCurrency", order);
       this.quantity = 0;

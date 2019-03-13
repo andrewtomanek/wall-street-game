@@ -35,6 +35,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  background-color: hsla(0, 50%, 95%, 1);
 }
 
 .trader__container {

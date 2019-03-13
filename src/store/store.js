@@ -22,22 +22,29 @@ export default new Vuex.Store({
     email: null
   },
   mutations: {
-    buyCurrency(state, { currencyId, quantity }) {
-      const record = state.currencies.find(element => element.id == currencyId);
-      if (record) {
-        record.quantity += quantity;
-      } else {
-        state.currencies.push({
-          id: currencyId,
-          quantity: quantity
-        });
-      }
-      let tempVallet = 0;
+    buyCurrency(state, { currencyId, quantity, oldQuantity }) {
+      // const record = state.currencies.find(element => element.id == currencyId);
+      // if (record) {
+      //   record.quantity += quantity;
+      // } else {
+      //   state.currencies.push({
+      //     id: currencyId,
+      //     quantity: quantity
+      //   });
+      // }
+      let tempVallet = state.vallet;
       for (let item of state.currencies) {
-        tempVallet += item.rate * item.quantity;
+        if (currencyId === item.id) {
+          tempVallet -= item.rate * quantity;
+          if (tempVallet > 0) {
+            item.quantity += quantity;
+            state.vallet = tempVallet;
+          } else {
+            item.quantity = oldQuantity;
+          }
+        }
         console.log(state.vallet, item.rate, item.quantity);
       }
-      state.vallet -= tempVallet;
     },
     sellCurrency(state, { currencyId, quantity }) {
       const record = state.currencies.find(element => element.id == currencyId);
@@ -83,10 +90,10 @@ export default new Vuex.Store({
     },
     initCurrencies: ({ commit }) => {
       let currencies = [
-        { id: 1, name: "EUR", rate: 1, quantity: 0 },
-        { id: 2, name: "CNY", rate: 2, quantity: 0 },
-        { id: 3, name: "GBP", rate: 3, quantity: 0 },
-        { id: 4, name: "CZK", rate: 4, quantity: 0 }
+        { id: 1, name: "EUR", rate: 0.8855, quantity: 0, oldQuantity: 0 },
+        { id: 2, name: "CNY", rate: 6.7085, quantity: 0, oldQuantity: 0 },
+        { id: 3, name: "GBP", rate: 0.76475, quantity: 0, oldQuantity: 0 },
+        { id: 4, name: "CZK", rate: 22.724, quantity: 0, oldQuantity: 0 }
       ];
 
       for (let item of currencies) {
@@ -97,10 +104,12 @@ export default new Vuex.Store({
             }&apikey=KFUX4FTWY91NEYKL`
           )
           .then(data => {
-            item.rate = +data.body["Realtime Currency Exchange Rate"][
-              "5. Exchange Rate"
-            ];
-            console.log(item.rate);
+            let rateData =
+              data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+            console.log(rateData);
+            if (rateData) {
+              item.rate = +rateData;
+            }
           });
       }
       commit("setCurrencies", currencies);
