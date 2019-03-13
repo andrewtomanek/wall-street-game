@@ -3,17 +3,14 @@ import Vuex from "vuex";
 import axios from "../axios-auth";
 import globalAxios from "axios";
 import router from "../main";
-import stocks from "./modules/stocks";
-import portfolio from "./modules/portfolio";
+import stocks from "../data/stocks";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    stocks,
-    portfolio
-  },
   state: {
+    funds: 10000,
+    stocks: [],
     currencies: [],
     vallet: 10000,
     idToken: null,
@@ -22,6 +19,41 @@ export default new Vuex.Store({
     email: null
   },
   mutations: {
+    buyStock(state, { stockId, quantity, stockPrice }) {
+      console.log(stockId, quantity, stockPrice);
+      const record = state.stocks.find(element => element.id == stockId);
+      if (record) {
+        record.quantity += quantity;
+      } else {
+        state.stocks.push({
+          id: stockId,
+          quantity: quantity
+        });
+      }
+      console.table(state.stocks);
+      state.funds -= stockPrice * quantity;
+    },
+    sellStock(state, { stockId, quantity, stockPrice }) {
+      const record = state.stocks.find(element => element.id == stockId);
+      if (record.quantity > quantity) {
+        record.quantity -= quantity;
+      } else {
+        state.stocks.splice(state.stocks.indexOf(record), 1);
+      }
+      state.funds += stockPrice * quantity;
+    },
+    setPortfolio(state, portfolio) {
+      state.funds = portfolio.funds;
+      state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : [];
+    },
+    setStocks(state, stocks) {
+      state.stocks = stocks;
+    },
+    randomizeStocks(state) {
+      state.stocks.forEach(stock => {
+        stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
+      });
+    },
     buyCurrency(state, { currencyId, quantity, oldQuantity }) {
       let buyVallet = state.vallet;
       for (let item of state.currencies) {
@@ -72,6 +104,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    sellStock({ commit }, order) {
+      commit("sellStock", order);
+    },
+    buyStock: ({ commit }, order) => {
+      commit("buyStock", order);
+    },
+    initStocks: ({ commit }) => {
+      commit("setStocks", stocks);
+    },
+    randomizeStocks: ({ commit }) => {
+      commit("randomizeStocks");
+    },
     buyCurrency: ({ commit }, order) => {
       commit("buyCurrency", order);
     },
@@ -149,8 +193,8 @@ export default new Vuex.Store({
               funds
             };
 
-            commit("SET_STOCKS", stocks);
-            commit("SET_PORTFOLIO", portfolio);
+            commit("setStocks", stocks);
+            commit("setPortfolio", portfolio);
           }
         });
     },
@@ -265,6 +309,20 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    stockPortfolio(state, getters) {
+      return state.stocks.map(stock => {
+        const record = getters.stocks.find(element => element.id == stock.id);
+        return {
+          id: stock.id,
+          quantity: stock.quantity,
+          name: record.name,
+          price: record.price
+        };
+      });
+    },
+    stocks: state => {
+      return state.stocks;
+    },
     getCurrencies(state) {
       return state.currencies;
     },
