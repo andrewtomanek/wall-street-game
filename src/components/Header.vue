@@ -3,6 +3,12 @@
     <nav class="nav__box">
       <div class="nav__links">
         <router-link to="/" class="navbar-brand">Stock Trader</router-link>
+        <router-link to="/dashboard">Dashboard</router-link>
+        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
+        <router-link v-if="!auth" to="/signin">Sign In</router-link>
+        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
+      </div>
+      <div v-if="auth" class="nav__panel">
         <router-link
           to="/portfolio"
           class="link__box"
@@ -31,32 +37,16 @@
           tag="div"
           ><a class="nav__link">Currencies</a></router-link
         >
-        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
-        <router-link v-if="!auth" to="/signin">Sign In</router-link>
-        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
       </div>
       <div v-if="auth" class="nav__panel">
-        <ul class="nav__menu">
-          <li class="nav__menu-item">
-            <router-link to="/dashboard">Dashboard</router-link>
-          </li>
-          <li class="nav__menu-item">
-            <a class="nav__link" href="#" @click="saveData">Save Data</a>
-          </li>
-          <li class="nav__menu-item">
-            <a class="nav__link" href="#" @click="loadData">Load Data</a>
-          </li>
-          <li class="nav__menu-item">
-            <span class="dash__currency-display" v-if="email"
-              >Your email address: {{ email }}</span
-            >
-          </li>
-          <li class="nav__menu-item">
-            <span class="dash__currency-display"
-              >Funds: {{ funds.toFixed(2) }}$</span
-            >
-          </li>
-        </ul>
+        <a class="nav__link" href="#" @click="saveData">Save Data</a>
+        <a class="nav__link" href="#" @click="loadData">Load Data</a>
+        <span class="dash__currency-display" v-if="email"
+          >Your email address: {{ email }}</span
+        >
+        <span class="dash__currency-display"
+          >Funds: {{ funds.toFixed(2) }}$</span
+        >
       </div>
     </nav>
   </header>

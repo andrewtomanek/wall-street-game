@@ -10,16 +10,9 @@ import SigninPage from "./components/auth/signin.vue";
 
 export const routes = [
   { path: "/", component: WelcomePage },
-  { path: "/portfolio", component: Portfolio },
-  { path: "/stocks", component: Stocks },
-  { path: "/currenciescart", component: CurrenciesCart },
-  { path: "/currencies", component: Currencies },
-  { path: "/signup", component: SignupPage },
-  { path: "/signin", component: SigninPage },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: DashboardPage,
+    path: "/portfolio",
+    component: Portfolio,
     beforeEnter(to, from, next) {
       if (store.state.idToken) {
         next();
@@ -27,5 +20,45 @@ export const routes = [
         next("/signin");
       }
     }
+  },
+  {
+    path: "/stocks",
+    component: Stocks,
+    beforeEnter(to, from, next) {
+      if (store.state.idToken) {
+        next();
+      } else {
+        next("/signin");
+      }
+    }
+  },
+  {
+    path: "/currenciescart",
+    component: CurrenciesCart,
+    beforeEnter(to, from, next) {
+      if (store.state.idToken) {
+        next();
+      } else {
+        next("/signin");
+      }
+    }
+  },
+  {
+    path: "/currencies",
+    component: Currencies,
+    beforeEnter(to, from, next) {
+      if (store.state.idToken) {
+        next();
+      } else {
+        next("/signin");
+      }
+    }
+  },
+  { path: "/signup", component: SignupPage },
+  { path: "/signin", component: SigninPage },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashboardPage
   }
 ];

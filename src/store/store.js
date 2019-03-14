@@ -4,6 +4,7 @@ import axios from "../axios-auth";
 import globalAxios from "axios";
 import router from "../main";
 import stocks from "../data/stocks";
+import currencies from "../data/currencies";
 
 Vue.use(Vuex);
 
@@ -110,6 +111,20 @@ export default new Vuex.Store({
       commit("buyStock", order);
     },
     initStocks: ({ commit }) => {
+      for (let item of stocks) {
+        Vue.http
+          .get(
+            `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${
+              item.symbol
+            }&apikey=KFUX4FTWY91NEYKL`
+          )
+          .then(data => {
+            let currentPrice = data.body["Global Quote"]["05. price"];
+            if (currentPrice) {
+              item.price = +currentPrice;
+            }
+          });
+      }
       commit("setStocks", stocks);
     },
     randomizeStocks: ({ commit }) => {
@@ -122,41 +137,6 @@ export default new Vuex.Store({
       commit("sellCurrency", order);
     },
     initCurrencies: ({ commit }) => {
-      let currencies = [
-        {
-          id: 1,
-          name: "Euro",
-          symbol: "EUR",
-          rate: 0.8855,
-          quantity: 0,
-          oldQuantity: 0
-        },
-        {
-          id: 2,
-          name: "Chinese Yuan",
-          symbol: "CNY",
-          rate: 6.7085,
-          quantity: 0,
-          oldQuantity: 0
-        },
-        {
-          id: 3,
-          name: "British Pound Sterling",
-          symbol: "GBP",
-          rate: 0.76475,
-          quantity: 0,
-          oldQuantity: 0
-        },
-        {
-          id: 4,
-          name: "Czech Republic Koruna",
-          symbol: "CZK",
-          rate: 22.724,
-          quantity: 0,
-          oldQuantity: 0
-        }
-      ];
-
       for (let item of currencies) {
         Vue.http
           .get(
