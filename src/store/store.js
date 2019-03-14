@@ -47,6 +47,9 @@ export default new Vuex.Store({
     setStocks(state, stocks) {
       state.stocks = stocks;
     },
+    setCurrencies(state, currencies) {
+      state.currencies = currencies;
+    },
     randomizeStocks(state) {
       state.stocks.forEach(stock => {
         stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
@@ -80,9 +83,6 @@ export default new Vuex.Store({
         }
       }
     },
-    setCurrencies(state, currencies) {
-      state.currencies = currencies;
-    },
     storeVallet(state, vallet) {
       state.funds = vallet;
     },
@@ -99,6 +99,7 @@ export default new Vuex.Store({
     clearAuthData(state) {
       state.idToken = null;
       state.userId = null;
+      state.email = null;
     }
   },
   actions: {
@@ -182,7 +183,7 @@ export default new Vuex.Store({
         .then(response => response.json())
         .then(data => {
           if (data) {
-            const stocks = data.stocks;
+            const currencies = data.currencies;
             const funds = data.funds;
             const stockPortfolio = data.stockPortfolio;
 
@@ -191,7 +192,7 @@ export default new Vuex.Store({
               funds
             };
 
-            commit("setStocks", stocks);
+            commit("setCurrencies", currencies);
             commit("setPortfolio", portfolio);
           }
         });
@@ -247,6 +248,7 @@ export default new Vuex.Store({
             token: res.data.idToken,
             userId: res.data.localId
           });
+          commit("storeEmail", authData.email);
           dispatch("setLogoutTimer", res.data.expiresIn);
           router.push({ name: "dashboard" });
         })

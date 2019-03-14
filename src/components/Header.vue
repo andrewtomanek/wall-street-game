@@ -34,9 +34,6 @@
         <router-link v-if="!auth" to="/signup">Sign Up</router-link>
         <router-link v-if="!auth" to="/signin">Sign In</router-link>
         <button v-if="auth" @click="onLogout" class="logout">Logout</button>
-        <span class="dash__currency-display"
-          >Funds: {{ funds.toFixed(2) }}$</span
-        >
       </div>
       <div v-if="auth" class="nav__panel">
         <ul class="nav__menu">
@@ -44,13 +41,20 @@
             <router-link to="/dashboard">Dashboard</router-link>
           </li>
           <li class="nav__menu-item">
-            <a class="nav__link" href="#" @click="endDay">End Day</a>
-          </li>
-          <li class="nav__menu-item">
             <a class="nav__link" href="#" @click="saveData">Save Data</a>
           </li>
           <li class="nav__menu-item">
             <a class="nav__link" href="#" @click="loadData">Load Data</a>
+          </li>
+          <li class="nav__menu-item">
+            <span class="dash__currency-display" v-if="email"
+              >Your email address: {{ email }}</span
+            >
+          </li>
+          <li class="nav__menu-item">
+            <span class="dash__currency-display"
+              >Funds: {{ funds.toFixed(2) }}$</span
+            >
           </li>
         </ul>
       </div>
@@ -73,6 +77,9 @@ export default {
     },
     auth() {
       return this.$store.getters.isAuthenticated;
+    },
+    email() {
+      return !this.$store.getters.email ? false : this.$store.getters.email;
     }
   },
   methods: {
@@ -80,14 +87,11 @@ export default {
       randomizeStocks: "randomizeStocks",
       fetchData: "loadData"
     }),
-    endDay() {
-      this.randomizeStocks();
-    },
     saveData() {
       const data = {
         funds: this.$store.getters.funds,
         stockPortfolio: this.$store.getters.stockPortfolio,
-        stocks: this.$store.getters.stocks
+        currencies: this.$store.getters.getCurrencies
       };
       this.$http.put("data.json" + "?auth=" + this.$store.state.idToken, data);
     },

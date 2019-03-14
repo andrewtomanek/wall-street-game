@@ -2,12 +2,6 @@
   <div class="dashboard">
     <h2>Currency dashboard</h2>
     <div class="dash__currency-display-box">
-      <span class="dash__currency-display" v-if="email"
-        >Your email address: {{ email }}</span
-      >
-    </div>
-
-    <div class="dash__currency-display-box">
       <span class="dash__currency-display">From {{ from_currency }}</span>
       <span class="dash__currency-display">Rate: {{ forex }}</span>
       <span class="dash__currency-display">To {{ to_currency }}</span>
@@ -388,11 +382,6 @@ export default {
             data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
         });
       return this.forex;
-    }
-  },
-  computed: {
-    email() {
-      return !this.$store.getters.email ? false : this.$store.getters.email;
     }
   }
 };
