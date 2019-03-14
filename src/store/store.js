@@ -157,9 +157,14 @@ export default new Vuex.Store({
     updateVallet({ commit }, vallet) {
       commit("storeVallet", vallet);
     },
-    loadData({ commit, state }) {
+    uploadData({ state }, data) {
+      const saveName = state.email.slice(0, -4);
+      Vue.http.put(`data/${saveName}.json?auth=${state.idToken}`, data);
+    },
+    downloadData({ commit, state }) {
+      const loadName = state.email.slice(0, -4);
       Vue.http
-        .get("data.json" + "?auth=" + state.idToken)
+        .get(`data/${loadName}.json?auth=${state.idToken}`)
         .then(response => response.json())
         .then(data => {
           if (data) {
@@ -204,6 +209,7 @@ export default new Vuex.Store({
           localStorage.setItem("expirationDate", expirationDate);
           dispatch("storeUser", authData);
           dispatch("setLogoutTimer", res.data.expiresIn);
+          commit("storeEmail", authData.email);
           router.push({ name: "dashboard" });
         })
         .catch(error => console.log(error));

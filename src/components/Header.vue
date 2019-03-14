@@ -73,23 +73,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      randomizeStocks: "randomizeStocks",
-      fetchData: "loadData"
-    }),
+    ...mapActions(["uploadData", "downloadData", "logout"]),
+
     saveData() {
       const data = {
+        user: this.$store.getters.email,
         funds: this.$store.getters.funds,
         stockPortfolio: this.$store.getters.stockPortfolio,
         currencies: this.$store.getters.getCurrencies
       };
-      this.$http.put("data.json" + "?auth=" + this.$store.state.idToken, data);
+      this.uploadData(data);
     },
     loadData() {
-      this.fetchData();
+      this.downloadData();
     },
     onLogout() {
-      this.$store.dispatch("logout");
+      this.logout();
     }
   }
 };

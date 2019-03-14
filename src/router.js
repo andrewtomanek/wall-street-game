@@ -9,7 +9,7 @@ import SignupPage from "./components/auth/signup.vue";
 import SigninPage from "./components/auth/signin.vue";
 
 export const routes = [
-  { path: "/", component: WelcomePage },
+  { path: "/", component: DashboardPage },
   {
     path: "/portfolio",
     component: Portfolio,
