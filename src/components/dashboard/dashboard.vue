@@ -355,13 +355,17 @@
         <option value="ZWL">Zimbabwean Dollar</option>
       </select>
     </div>
+    <welcome-page></welcome-page>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-
+import Welcome from "../welcome/Welcome.vue";
 export default {
+  components: {
+    welcomePage: Welcome
+  },
   data() {
     return {
       forex: null,

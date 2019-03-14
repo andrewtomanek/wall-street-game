@@ -3,8 +3,7 @@ import Portfolio from "./components/portfolio/Portfolio.vue";
 import Stocks from "./components/stocks/Stocks.vue";
 import CurrenciesCart from "./components/currencycart/CurrenciesCart.vue";
 import Currencies from "./components/currencies/Currencies.vue";
-import WelcomePage from "./components/welcome/welcome.vue";
-import DashboardPage from "./components/dashboard/dashboard.vue";
+import DashboardPage from "./components/dashboard/Dashboard.vue";
 import SignupPage from "./components/auth/signup.vue";
 import SigninPage from "./components/auth/signin.vue";
 
