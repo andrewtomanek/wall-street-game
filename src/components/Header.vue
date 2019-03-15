@@ -2,8 +2,7 @@
   <header>
     <nav class="nav__box">
       <div class="nav__links">
-        <router-link to="/" class="navbar-brand">Stock Trader</router-link>
-        <router-link to="/dashboard">Dashboard</router-link>
+        <router-link to="/" class="navbar-brand">Dashboard</router-link>
         <router-link v-if="!auth" to="/signup">Sign Up</router-link>
         <router-link v-if="!auth" to="/signin">Sign In</router-link>
         <button v-if="auth" @click="onLogout" class="logout">Logout</button>
@@ -39,14 +38,10 @@
         >
       </div>
       <div v-if="auth" class="nav__panel">
-        <a class="nav__link" href="#" @click="saveData">Save Data</a>
-        <a class="nav__link" href="#" @click="loadData">Load Data</a>
-        <span class="dash__currency-display" v-if="email"
-          >Your email address: {{ email }}</span
-        >
-        <span class="dash__currency-display"
-          >Funds: {{ funds.toFixed(2) }}$</span
-        >
+        <button class="data__button" @click="saveData">Save Data</button>
+        <button class="data__button" @click="loadData">Load Data</button>
+        <span class="dash__email" v-if="email"> {{ email }}</span>
+        <span class="dash__funds">Funds: {{ funds.toFixed(2) }}$</span>
       </div>
     </nav>
   </header>
@@ -295,5 +290,26 @@ nav a.router-link-exact-active {
   font-family: "Tahoma";
   text-align: center;
   text-decoration: none;
+}
+.data__button {
+  width: 100%;
+  background-color: hsla(22, 50%, 48%, 1);
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: white;
+}
+.dash__email {
+  width: 100%;
+  background-color: hsla(22, 50%, 48%, 1);
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: white;
+}
+.dash__funds {
+  width: 100%;
+  background-color: hsla(22, 50%, 48%, 1);
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: white;
 }
 </style>

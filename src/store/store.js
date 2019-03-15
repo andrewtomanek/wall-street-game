@@ -159,6 +159,7 @@ export default new Vuex.Store({
     },
     uploadData({ state }, data) {
       const saveName = state.email.slice(0, -4);
+
       Vue.http.put(`data/${saveName}.json?auth=${state.idToken}`, data);
     },
     downloadData({ commit, state }) {
@@ -210,6 +211,7 @@ export default new Vuex.Store({
           dispatch("storeUser", authData);
           dispatch("setLogoutTimer", res.data.expiresIn);
           commit("storeEmail", authData.email);
+          dispatch("downloadData");
           router.push({ name: "dashboard" });
         })
         .catch(error => console.log(error));
@@ -236,6 +238,7 @@ export default new Vuex.Store({
           });
           commit("storeEmail", authData.email);
           dispatch("setLogoutTimer", res.data.expiresIn);
+          dispatch("downloadData");
           router.push({ name: "dashboard" });
         })
         .catch(error => console.log(error));
@@ -262,7 +265,7 @@ export default new Vuex.Store({
       localStorage.removeItem("expirationDate");
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
-      router.replace("/signin");
+      router.replace("/");
     },
     storeUser({ state }, userData) {
       if (!state.idToken) {
@@ -302,6 +305,7 @@ export default new Vuex.Store({
           id: stock.id,
           quantity: stock.quantity,
           name: record.name,
+          symbol: record.symbol,
           price: record.price
         };
       });

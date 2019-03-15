@@ -8,7 +8,7 @@ import SignupPage from "./components/auth/signup.vue";
 import SigninPage from "./components/auth/signin.vue";
 
 export const routes = [
-  { path: "/", component: DashboardPage },
+  { path: "/", name: "dashboard", component: DashboardPage },
   {
     path: "/portfolio",
     component: Portfolio,
@@ -16,7 +16,7 @@ export const routes = [
       if (store.state.idToken) {
         next();
       } else {
-        next("/signin");
+        next("/");
       }
     }
   },
@@ -27,7 +27,7 @@ export const routes = [
       if (store.state.idToken) {
         next();
       } else {
-        next("/signin");
+        next("/");
       }
     }
   },
@@ -38,7 +38,7 @@ export const routes = [
       if (store.state.idToken) {
         next();
       } else {
-        next("/signin");
+        next("/");
       }
     }
   },
@@ -49,15 +49,10 @@ export const routes = [
       if (store.state.idToken) {
         next();
       } else {
-        next("/signin");
+        next("/");
       }
     }
   },
   { path: "/signup", component: SignupPage },
-  { path: "/signin", component: SigninPage },
-  {
-    path: "/dashboard",
-    name: "dashboard",
-    component: DashboardPage
-  }
+  { path: "/signin", component: SigninPage }
 ];

@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <h2>Currency dashboard</h2>
+    <data-page v-if="auth"></data-page>
     <div class="dash__currency-display-box">
       <span class="dash__currency-display">From {{ from_currency }}</span>
       <span class="dash__currency-display">Rate: {{ forex }}</span>
@@ -355,16 +355,18 @@
         <option value="ZWL">Zimbabwean Dollar</option>
       </select>
     </div>
-    <welcome-page></welcome-page>
+    <login-page v-if="!auth"></login-page>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import Welcome from "../welcome/Welcome.vue";
+import LoginBoard from "./LoginBoard.vue";
+import DataBoard from "./DataBoard.vue";
 export default {
   components: {
-    welcomePage: Welcome
+    loginPage: LoginBoard,
+    dataPage: DataBoard
   },
   data() {
     return {
@@ -372,6 +374,11 @@ export default {
       from_currency: "USD",
       to_currency: "EUR"
     };
+  },
+  computed: {
+    auth() {
+      return this.$store.getters.isAuthenticated;
+    }
   },
   methods: {
     getForex() {
