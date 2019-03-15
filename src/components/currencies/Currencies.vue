@@ -1,18 +1,17 @@
 <template>
-  <div>
-    <div class="currency__display-box">
-      <div class="currency__name">
-        name
-      </div>
-      <div class="currency__display">
-        rate
-      </div>
-      <div class="currency__display">
-        amount
-      </div>
-      <span class="currency__display">quantity </span>
-      <span class="currency__display">Choose </span>
-      <span class="currency__display">Buy </span>
+  <div class="stock__container">
+    <div class="stock__labels">
+      <span class="stock__label-name">
+        Stock name
+      </span>
+      <span class="stock__label">
+        Symbol
+      </span>
+      <span class="stock__label">
+        Rate
+      </span>
+      <span class="stock__label">Quantity </span>
+      <span class="stock__label-empty"></span>
     </div>
     <app-currency
       v-for="currency in currencies"
@@ -40,42 +39,44 @@ export default {
 </script>
 
 <style scoped>
-.dash__currency-display-box {
+.stock__container {
   display: grid;
-  grid-auto-flow: column;
-  grid-gap: 0.8rem 0.5rem;
+  grid-auto-flow: row;
+  grid-gap: 1.5rem 0.5rem;
   justify-items: center;
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
-  background: hsla(179, 97%, 97%, 1);
+  padding: 1rem;
+  width: 100vw;
+  background: hsla(0, 0%, 95%, 1);
 }
 
-.dash__currency-display {
-  width: 100%;
-  color: hsla(22, 50%, 48%, 1);
-  background-color: black;
-  font-size: 1rem;
-  padding: 0.5rem;
-  color: white;
-}
-
-.currency__display-box {
+.stock__labels {
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 0.8rem 0.5rem;
+  grid-gap: 1.5rem 0.5rem;
   justify-items: center;
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
-  background-color: var(--grey);
+  width: 90vw;
+  padding: 1rem;
+  background: hsla(0, 0%, 0%, 1);
 }
 
-.currency__display {
-  width: 100%;
-  background-color: black;
-  font-size: 1rem;
-  padding: 0.5rem;
-  color: white;
+.stock__label {
+  padding: 0.3rem;
+  background: hsla(0, 0%, 95%, 1);
+}
+
+.stock__label-name {
+  padding: 1rem;
+  width: 20vw;
+}
+
+.stock__label-empty {
+  padding: 1rem;
+  width: 25vw;
 }
 </style>

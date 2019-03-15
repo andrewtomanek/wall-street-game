@@ -1,30 +1,26 @@
 <template>
   <div class="currency__container">
-    <div class="currency__display-box">
-      <div class="currency__name">
-        {{ currency.name }}
-      </div>
-      <div class="currency__rate">
-        {{ currency.symbol }}
-      </div>
-      <div class="currency__rate">
-        {{ currency.rate }}
-      </div>
-      <span class="currency__display"
-        >Sold Currency: {{ currency.quantity }}</span
-      >
-      <input
-        type="number"
-        class="form__control"
-        placeholder="Quantity"
-        min="0"
-        v-model.number="sellQuantity"
-        :class="{ invalid: this.sellQuantity < 0 }"
-      />
-      <button @click="resellForex()" class="select__button">
-        Sell
-      </button>
+    <div class="currency__name">
+      {{ currency.name }}
     </div>
+    <div class="currency__symbol">
+      {{ currency.symbol }}
+    </div>
+    <div class="currency__rate">
+      {{ currency.rate.toFixed(2) }}
+    </div>
+    <span class="currency__quantity"> {{ currency.quantity }}</span>
+    <input
+      type="number"
+      class="currency__input"
+      placeholder="Quantity"
+      min="0"
+      v-model.number="sellQuantity"
+      :class="{ invalid: this.sellQuantity < 0 }"
+    />
+    <button @click="resellForex()" class="currency__button">
+      Sell
+    </button>
   </div>
 </template>
 
@@ -57,93 +53,84 @@ export default {
 </script>
 
 <style scoped>
-.currency__display-box {
+.currency__container {
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 0.8rem 0.5rem;
+  grid-gap: 0.5rem;
   justify-items: center;
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
-  background: hsla(179, 97%, 97%, 1);
-}
-
-.currency__display {
-  width: 100%;
-  color: hsla(22, 50%, 48%, 1);
-  background-color: black;
-  font-size: 1rem;
-  padding: 0.5rem;
-  color: white;
+  width: 90vw;
+  padding: 1rem;
+  background: hsla(0, 0%, 0%, 1);
 }
 
 .currency__name {
   width: 100%;
-  color: hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
+  font-weight: 800;
+  padding: 0.5rem;
+  color: white;
+  width: 25vw;
+}
+
+.currency__symbol {
+  width: 100%;
+  background-color: black;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.5rem;
+  color: white;
+}
+
+.currency__price {
+  width: 100%;
+  background-color: black;
+  font-size: 1rem;
+  font-weight: 700;
   padding: 0.5rem;
   color: white;
 }
 
 .currency__rate {
   width: 100%;
-  color: hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
+  font-weight: 700;
   padding: 0.5rem;
   color: white;
 }
 
-.currency__controls {
-  display: grid;
-  grid-gap: 0.8rem 0.5rem;
-  grid-auto-flow: column;
-  justify-items: center;
-  align-items: center;
-  justify-content: space-evenly;
-  align-content: space-around;
+.currency__quantity {
+  width: 100%;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.currency__input {
+  width: 50%;
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
-  margin: 1rem;
   color: white;
   cursor: pointer;
 }
 
-.form__control {
-  width: 5rem;
-  background-color: black;
-  font-size: 1rem;
-  padding: 0.3rem;
-  color: white;
-  cursor: pointer;
-}
-
-.select__button {
-  background-color: var(--green);
+.currency__button {
+  background-color: var(--red);
   text-decoration: none;
   font-size: 1rem;
-  padding: 0.3rem;
-  border: 0.5rem ridge white;
+  font-weight: 900;
+  padding: 0.5rem;
   color: white;
+  border: 0.3rem solid var(--grey);
   cursor: pointer;
 }
-
-.invalid {
-  border: 0.1rem solid red;
-  background-color: red;
-  color: white;
-}
-
-.currency__container {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-auto-flow: row;
-  place-items: center;
-  justify-content: space-around;
-  width: 100%;
-  overflow: hidden;
+.danger {
+  border: 1px solid red;
 }
 </style>
