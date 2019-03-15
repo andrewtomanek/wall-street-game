@@ -1,20 +1,18 @@
 <template>
-  <div id="signin">
-    <div class="signin-form">
-      <form @submit.prevent="onSubmit">
-        <div class="input">
-          <label for="email">Mail</label>
-          <input type="email" id="email" v-model="email" />
-        </div>
-        <div class="input">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" />
-        </div>
-        <div class="submit">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+  <div class="signin-container">
+    <form @submit.prevent="onSubmit">
+      <div class="input">
+        <label for="email">Mail</label>
+        <input type="email" id="email" v-model="email" />
+      </div>
+      <div class="input">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="password" />
+      </div>
+      <div class="submit">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -43,12 +41,17 @@ export default {
 </script>
 
 <style scoped>
-.signin-form {
-  width: 400px;
-  margin: 30px auto;
-  border: 1px solid #eee;
-  padding: 20px;
-  box-shadow: 0 2px 3px #ccc;
+.signin-container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1.5rem 0.5rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: space-around;
+  padding: 1rem;
+  width: 100vw;
+  background: hsla(0, 0%, 95%, 1);
 }
 
 .input {

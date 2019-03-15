@@ -8,15 +8,13 @@
       :key="stockItem.symbol"
     >
       <div class="dashboard__name">
-        Name:
         {{ stockItem.name }}
       </div>
       <div class="dashboard__rate">
-        Symbol:
         {{ stockItem.symbol }}
       </div>
-      <div class="dashboard__rate">Price: {{ stockItem.price }}</div>
-      <div class="dashboard__rate">Quantity: {{ stockItem.quantity }}</div>
+      <div class="dashboard__rate">{{ stockItem.price }}</div>
+      <div class="dashboard__rate">{{ stockItem.quantity }}</div>
     </div>
     <H2>Purchased currency </H2>
     <div
@@ -25,18 +23,15 @@
       class="dashboard__display-box"
     >
       <div class="dashboard__name">
-        Name:
         {{ money.name }}
       </div>
       <div class="dashboard__rate">
-        Symbol:
         {{ money.symbol }}
       </div>
       <div class="dashboard__rate">
-        Rate:
         {{ money.rate }}
       </div>
-      <span class="dashboard__display">Quantity: {{ money.quantity }}</span>
+      <span class="dashboard__display"> {{ money.quantity }}</span>
     </div>
   </div>
 </template>
@@ -64,6 +59,7 @@ export default {
   place-items: center;
   justify-content: space-around;
   width: 100%;
+  font-weight: 700;
   overflow: hidden;
 }
 
@@ -90,7 +86,7 @@ export default {
 }
 
 .dashboard__name {
-  width: 100%;
+  width: 25vw;
   color: white;
   font-size: 1rem;
   padding: 0.5rem;

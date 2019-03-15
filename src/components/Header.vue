@@ -37,7 +37,7 @@
           ><a class="nav__link">Currencies</a></router-link
         >
       </div>
-      <div v-if="auth" class="nav__panel">
+      <div v-if="auth" class="data__panel">
         <button class="data__button" @click="saveData">Save Data</button>
         <button class="data__button" @click="loadData">Load Data</button>
         <span class="dash__email" v-if="email"> {{ email }}</span>
@@ -264,6 +264,17 @@ nav a.router-link-exact-active {
   justify-content: space-around;
 }
 
+.data__panel {
+  color: white;
+  background-color: black;
+  padding: 0.3rem;
+  grid-gap: 1rem;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  justify-content: space-around;
+}
+
 .nav__menu {
   margin: 0;
   padding: 0.5rem;
@@ -292,10 +303,9 @@ nav a.router-link-exact-active {
   text-decoration: none;
 }
 .data__button {
-  width: 100%;
   background-color: hsla(22, 50%, 48%, 1);
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.2rem;
   color: white;
 }
 .dash__email {

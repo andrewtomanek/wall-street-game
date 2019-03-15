@@ -1,41 +1,39 @@
 <template>
-  <div id="signup">
-    <div class="signup-form">
-      <form @submit.prevent="onSubmit">
-        <div class="input" :class="{ invalid: $v.email.$error }">
-          <label for="email">Mail</label>
-          <input
-            type="email"
-            id="email"
-            @blur="$v.email.$touch()"
-            v-model="email"
-          />
-          <p v-if="!$v.email.email">Please provide a valid email address.</p>
-          <p v-if="!$v.email.required">This field must not be empty.</p>
-        </div>
-        <div class="input" :class="{ invalid: $v.password.$error }">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            @blur="$v.password.$touch()"
-            v-model="password"
-          />
-        </div>
-        <div class="input" :class="{ invalid: $v.confirmPassword.$error }">
-          <label for="confirm-password">Confirm Password</label>
-          <input
-            type="password"
-            id="confirm-password"
-            @blur="$v.confirmPassword.$touch()"
-            v-model="confirmPassword"
-          />
-        </div>
-        <div class="submit">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+  <div class="signup__container">
+    <form @submit.prevent="onSubmit">
+      <div class="input" :class="{ invalid: $v.email.$error }">
+        <label for="email">Mail</label>
+        <input
+          type="email"
+          id="email"
+          @blur="$v.email.$touch()"
+          v-model="email"
+        />
+        <p v-if="!$v.email.email">Please provide a valid email address.</p>
+        <p v-if="!$v.email.required">This field must not be empty.</p>
+      </div>
+      <div class="input" :class="{ invalid: $v.password.$error }">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          @blur="$v.password.$touch()"
+          v-model="password"
+        />
+      </div>
+      <div class="input" :class="{ invalid: $v.confirmPassword.$error }">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          @blur="$v.confirmPassword.$touch()"
+          v-model="confirmPassword"
+        />
+      </div>
+      <div class="submit">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -88,12 +86,17 @@ export default {
 </script>
 
 <style scoped>
-.signup-form {
-  width: 400px;
-  margin: 30px auto;
-  border: 1px solid #eee;
-  padding: 20px;
-  box-shadow: 0 2px 3px #ccc;
+.signup__container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1.5rem 0.5rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: space-around;
+  padding: 1rem;
+  width: 100vw;
+  background: hsla(0, 0%, 95%, 1);
 }
 
 .input {
