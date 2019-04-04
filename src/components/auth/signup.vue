@@ -32,6 +32,7 @@
         <input
           type="password"
           id="confirm-password"
+          placeholder="Please confirm password"
           @blur="$v.confirmPassword.$touch()"
           v-model="confirmPassword"
         />

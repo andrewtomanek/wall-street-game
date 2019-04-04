@@ -1,28 +1,57 @@
 <template>
   <div class="signin-container">
-    <form @submit.prevent="onSubmit">
-      <div class="input">
-        <label for="email">Mail</label>
-        <input type="email" id="email" v-model="email" />
+    <form class="signin__form" @submit.prevent="onSubmit">
+      <div class="input__box">
+        <label for="email">Login Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          @blur="$v.email.$touch()"
+          v-model="email"
+        />
+        <p class="input__error" v-if="!$v.email.email">
+          Please provide a valid email address.
+        </p>
       </div>
-      <div class="input">
+      <div class="input__box">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"
+          @blur="$v.password.$touch()"
+          v-model="password"
+        />
+        <p class="input__error" v-if="!$v.password.minLen">
+          Enter min 6 characters.
+        </p>
       </div>
       <div class="submit">
-        <button type="submit">Submit</button>
+        <button type="submit" :disabled="$v.$invalid">Submit</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
       email: "",
       password: ""
     };
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLen: minLength(6)
+    }
   },
   methods: {
     onSubmit() {
@@ -42,53 +71,82 @@ export default {
 <style scoped>
 .signin-container {
   display: grid;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+}
+
+.signin__form {
+  display: grid;
   grid-auto-flow: row;
-  grid-gap: 1.5rem 0.5rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: space-around;
+  background-color: hsla(0, 0%, 95%, 1);
+  padding: 0.1rem 2rem 0.5rem;
+  border: 0.2rem solid white;
+}
+
+.input__box {
+  margin: 0;
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 0.3rem 0rem;
   justify-items: center;
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
   padding: 1rem;
-  width: 100vw;
-  background: hsla(0, 0%, 95%, 1);
 }
 
 .input {
   margin: 10px auto;
 }
 
-.input label {
-  display: block;
-  color: #4e4e4e;
-  margin-bottom: 6px;
+.input__box label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green);
 }
 
-.input input {
-  font: inherit;
+.input__box input {
+  font-size: 1.1rem;
+  font-weight: 600;
   width: 100%;
-  padding: 6px 12px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 0.2rem solid hsla(0, 0%, 70%, 1);
+  background-color: hsla(0, 0%, 95%, 1);
 }
 
-.input input:focus {
+.input__box input:focus {
+  border: 0.2rem solid hsla(0, 0%, 90%, 1);
   outline: none;
-  border: 1px solid #521751;
-  background-color: #eee;
+  background-color: white;
+}
+
+.input__error {
+  color: var(--red);
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0;
 }
 
 .submit button {
-  border: 1px solid #521751;
-  color: #521751;
-  padding: 10px 20px;
-  font: inherit;
+  background-color: var(--green);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem;
+  border: 0.2rem solid white;
+  color: white;
   cursor: pointer;
 }
 
 .submit button:hover,
 .submit button:active {
-  background-color: #521751;
-  color: white;
+  color: var(--green);
+  background-color: white;
+  border: 0.2rem solid var(--green);
 }
 
 .submit button[disabled],
