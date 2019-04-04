@@ -31,7 +31,7 @@
         />
       </div>
       <div class="submit">
-        <button type="submit">Submit</button>
+        <button type="submit" :disabled="$v.$invalid">Submit</button>
       </div>
     </form>
   </div>
