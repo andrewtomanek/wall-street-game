@@ -101,6 +101,8 @@ export default new Vuex.Store({
       state.idToken = null;
       state.userId = null;
       state.email = null;
+      state.vallet = 10000;
+      state.funds = 10000;
     }
   },
   actions: {
@@ -159,7 +161,6 @@ export default new Vuex.Store({
     },
     uploadData({ state }, data) {
       const saveName = state.email.slice(0, -4);
-
       Vue.http.put(`data/${saveName}.json?auth=${state.idToken}`, data);
     },
     downloadData({ commit, state }) {
@@ -244,6 +245,11 @@ export default new Vuex.Store({
         .catch(error => console.log(error));
     },
     tryAutoLogin({ commit }) {
+      const storageEmail = localStorage.getItem("email");
+      if (!storageEmail) {
+        return;
+      }
+      commit("storeEmail", storageEmail);
       const token = localStorage.getItem("token");
       if (!token) {
         return;
@@ -259,7 +265,14 @@ export default new Vuex.Store({
         userId: userId
       });
     },
-    logout({ commit }) {
+    logout({ commit, dispatch, getters }) {
+      const data = {
+        user: getters.email,
+        funds: getters.funds,
+        stockPortfolio: getters.stockPortfolio,
+        currencies: getters.getCurrencies
+      };
+      dispatch("uploadData", data);
       commit("clearAuthData");
       localStorage.removeItem("email");
       localStorage.removeItem("expirationDate");

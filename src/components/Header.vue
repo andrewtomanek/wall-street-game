@@ -307,6 +307,7 @@ nav a.router-link-exact-active {
   font-size: 1rem;
   padding: 0.2rem;
   color: white;
+  cursor: pointer;
 }
 .dash__email {
   width: 100%;
