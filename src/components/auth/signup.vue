@@ -1,27 +1,33 @@
 <template>
   <div class="signup__container">
-    <form @submit.prevent="onSubmit">
-      <div class="input" :class="{ invalid: $v.email.$error }">
+    <form class="signup__form" @submit.prevent="onSubmit">
+      <div class="input__box" :class="{ invalid: $v.email.$error }">
         <label for="email">Mail</label>
         <input
           type="email"
           id="email"
+          placeholder="Enter your email"
           @blur="$v.email.$touch()"
           v-model="email"
         />
-        <p v-if="!$v.email.email">Please provide a valid email address.</p>
-        <p v-if="!$v.email.required">This field must not be empty.</p>
+        <p class="input__error" v-if="!$v.email.email">
+          Please provide a valid email address.
+        </p>
       </div>
-      <div class="input" :class="{ invalid: $v.password.$error }">
+      <div class="input__box" :class="{ invalid: $v.password.$error }">
         <label for="password">Password</label>
         <input
           type="password"
           id="password"
+          placeholder="Please enter password"
           @blur="$v.password.$touch()"
           v-model="password"
         />
+        <p class="input__error" v-if="!$v.password.minLen">
+          Enter min 6 characters.
+        </p>
       </div>
-      <div class="input" :class="{ invalid: $v.confirmPassword.$error }">
+      <div class="input__box" :class="{ invalid: $v.confirmPassword.$error }">
         <label for="confirm-password">Confirm Password</label>
         <input
           type="password"
@@ -29,6 +35,9 @@
           @blur="$v.confirmPassword.$touch()"
           v-model="confirmPassword"
         />
+        <p class="input__error" v-if="!$v.confirmPassword.sameAs">
+          Enter identical password.
+        </p>
       </div>
       <div class="submit">
         <button type="submit" :disabled="$v.$invalid">Submit</button>
@@ -88,101 +97,99 @@ export default {
 <style scoped>
 .signup__container {
   display: grid;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+}
+
+.signup__form {
+  display: grid;
   grid-auto-flow: row;
-  grid-gap: 1.5rem 0.5rem;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: space-around;
+  background-color: hsla(0, 0%, 95%, 1);
+  padding: 0.1rem 2rem 0.5rem;
+  border: 0.2rem solid white;
+}
+
+.input__box {
+  margin: 0;
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 0.3rem 0rem;
   justify-items: center;
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
   padding: 1rem;
-  width: 100vw;
-  background: hsla(0, 0%, 95%, 1);
 }
 
-.input {
-  margin: 10px auto;
+.input__box label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green);
 }
 
-.input label {
-  display: block;
-  color: #4e4e4e;
-  margin-bottom: 6px;
-}
-
-.input.inline label {
-  display: inline;
-}
-
-.input input {
-  font: inherit;
+.input__box input {
+  font-size: 1.1rem;
+  font-weight: 600;
   width: 100%;
-  padding: 6px 12px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 0.2rem solid white;
 }
 
-.input.inline input {
-  width: auto;
-}
-
-.input input:focus {
+.input__box input:focus {
+  border: 0.2rem solid var(--green);
   outline: none;
-  border: 1px solid #521751;
   background-color: #eee;
 }
 
-.input.invalid label {
+.input__box.invalid label {
   color: red;
 }
 
-.input.invalid input {
-  border: 1px solid red;
+.input__box.invalid input {
+  border: 0.2rem solid red;
   background-color: #ffc9aa;
 }
 
-.input select {
-  border: 1px solid #ccc;
+.input__box select {
+  border: 0.2rem solid #ccc;
   font: inherit;
 }
 
-.hobbies button {
-  border: 1px solid #521751;
-  background: #521751;
-  color: white;
-  padding: 6px;
-  font: inherit;
-  cursor: pointer;
-}
-
-.hobbies button:hover,
-.hobbies button:active {
-  background-color: #8d4288;
-}
-
-.hobbies input {
-  width: 90%;
+.input__error {
+  color: var(--red);
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin: 0;
 }
 
 .submit button {
-  border: 1px solid #521751;
-  color: #521751;
-  padding: 10px 20px;
-  font: inherit;
+  background-color: var(--green);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem;
+  border: 0.2rem solid white;
+  color: white;
   cursor: pointer;
 }
 
 .submit button:hover,
 .submit button:active {
-  background-color: #521751;
-  color: white;
+  color: var(--green);
+  background-color: white;
+  border: 0.2rem solid var(--green);
 }
 
 .submit button[disabled],
 .submit button[disabled]:hover,
 .submit button[disabled]:active {
-  border: 1px solid #ccc;
-  background-color: transparent;
-  color: #ccc;
+  border: 0.2rem solid var(--grey);
+  background-color: white;
+  color: var(--grey);
   cursor: not-allowed;
 }
 </style>
