@@ -121,6 +121,7 @@ export default new Vuex.Store({
             }&apikey=KFUX4FTWY91NEYKL`
           )
           .then(data => {
+            if (data.status === 200) return;
             let currentPrice = data.body["Global Quote"]["05. price"];
             if (currentPrice) {
               item.price = +currentPrice;
@@ -147,6 +148,7 @@ export default new Vuex.Store({
             }&apikey=KFUX4FTWY91NEYKL`
           )
           .then(data => {
+            if (data.status === 200) return;
             let rateData =
               data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
             if (rateData) {
@@ -164,6 +166,7 @@ export default new Vuex.Store({
       Vue.http.put(`data/${saveName}.json?auth=${state.idToken}`, data);
     },
     downloadData({ commit, state }) {
+      if (!state.email) return;
       const loadName = state.email.slice(0, -4);
       Vue.http
         .get(`data/${loadName}.json?auth=${state.idToken}`)

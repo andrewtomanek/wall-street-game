@@ -1,18 +1,19 @@
 <template>
-  <div id="welcome">
+  <div class="home">
     <h1>Wallstreet game</h1>
-    <p>sign in or sign up to save your data</p>
-    <div class="cta">
-      <router-link to="/signup">Sign Up</router-link>
-      <router-link to="/signin">Sign In</router-link>
+    <p>Sign in or sign up to save your data</p>
+    <div class="router__box">
+      <router-link class="router__link" to="/signup">Sign Up</router-link>
+      <router-link class="router__link" to="/signin">Sign In</router-link>
     </div>
   </div>
 </template>
 
 <style scoped>
-#welcome {
-  width: 80%;
-  margin: auto;
+.home {
+  width: 100vw;
+  height: 60vh;
+  margin: 0;
 }
 
 h1 {
@@ -23,27 +24,31 @@ p {
   text-align: center;
 }
 
-.cta {
-  width: 300px;
-  margin: auto;
-  text-align: center;
+.router__box {
+  display: grid;
+  grid-gap: 1rem;
+  grid-auto-flow: column;
+  justify-content: center;
+  background-color: hsla(0, 0%, 95%, 1);
+  padding: 1rem 2rem;
 }
 
-.cta a {
-  margin: 10px;
+.router__link {
   text-decoration: none;
-  display: inline-block;
-  border: 1px solid #521751;
-  border-radius: 3px;
-  width: 100px;
-  padding: 10px;
-  box-sizing: border-box;
-  color: #521751;
+  background-color: var(--green);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border: 0.4rem solid black;
+  color: white;
+  cursor: pointer;
 }
 
-.cta a:hover,
-.cta a:active {
-  background-color: #521751;
-  color: white;
+.router__link:hover,
+.router__link:active {
+  color: var(--green);
+  background-color: white;
+  border: 0.4rem solid var(--green);
 }
 </style>

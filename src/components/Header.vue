@@ -1,47 +1,53 @@
 <template>
   <header>
     <nav class="nav__box">
-      <div class="nav__links">
-        <router-link to="/" class="navbar-brand">Dashboard</router-link>
-        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
-        <router-link v-if="!auth" to="/signin">Sign In</router-link>
-        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
-      </div>
       <div v-if="auth" class="nav__panel">
+        <router-link to="/" class="navbar-brand nav__link"
+          >Dashboard</router-link
+        >
         <router-link
           to="/portfolio"
-          class="link__box"
+          class="nav__link"
           activeClass="active"
           tag="div"
-          ><a class="nav__link">Portfolio</a></router-link
+          >Portfolio</router-link
         >
         <router-link
           to="/stocks"
-          class="link__box"
+          class="nav__link"
           activeClass="active"
           tag="div"
-          ><a class="nav__link">Stocks</a></router-link
+          >Stocks</router-link
         >
         <router-link
           to="/currenciescart"
-          class="link__box"
+          class="nav__link"
           activeClass="active"
           tag="div"
-          ><a class="nav__link">Cart</a></router-link
+          >Cart</router-link
         >
         <router-link
           to="/currencies"
-          class="link__box"
+          class="nav__link"
           activeClass="active"
           tag="div"
-          ><a class="nav__link">Currencies</a></router-link
+          >Currencies</router-link
         >
       </div>
-      <div v-if="auth" class="data__panel">
-        <button class="data__button" @click="saveData">Save Data</button>
-        <button class="data__button" @click="loadData">Load Data</button>
-        <span class="dash__email" v-if="email"> {{ email }}</span>
-        <span class="dash__funds">Funds: {{ funds.toFixed(2) }}$</span>
+      <div class="nav__links">
+        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
+        <router-link v-if="!auth" to="/signin">Sign In</router-link>
+        <button v-if="auth" class="data__button" @click="saveData">
+          Save Data
+        </button>
+        <button v-if="auth" class="data__button" @click="loadData">
+          Load Data
+        </button>
+        <span v-if="auth" class="dash__funds"
+          >Funds: {{ funds.toFixed(2) }}$</span
+        >
+        <span class="dash__email" v-if="auth && email"> {{ email }}</span>
+        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
       </div>
     </nav>
   </header>
@@ -89,62 +95,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #header {
-  height: 56px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #521751;
-  padding: 0 20px;
-}
-
-.logo {
-  font-weight: bold;
-  color: white;
-}
-
-.logo a {
-  text-decoration: none;
-  color: white;
-}
-
-nav {
-  height: 100%;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-}
-
-li {
-  margin: 0 16px;
-}
-
-li a {
-  text-decoration: none;
-  color: white;
-}
-
-li a:hover,
-li a:active,
-li a.router-link-active {
-  color: #fa923f;
-}
-
-.logout {
-  background-color: transparent;
-  border: none;
-  font: inherit;
-  color: white;
-  cursor: pointer;
 }
 
 nav {
@@ -153,28 +109,6 @@ nav {
   justify-content: space-around;
   background-color: hsla(0, 0%, 0%, 1);
   padding: 0 2rem;
-}
-
-nav a {
-  background-color: var(--red);
-  color: white;
-  border-bottom: 0.5rem solid transparent;
-  padding: 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: "Tahoma";
-  text-align: center;
-  text-decoration: none;
-}
-
-.nav a:hover {
-  background-color: var(--red);
-  color: white;
-  border-bottom: 0.5rem solid white;
-}
-
-nav a.router-link-exact-active {
-  border-bottom: 0.5rem solid var(--red);
 }
 
 .nav__header {
@@ -191,13 +125,11 @@ nav a.router-link-exact-active {
 .navbar-brand {
   background-color: var(--red);
   color: white;
-  border-bottom: 0.5rem solid transparent;
-  padding: 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: "Tahoma";
-  text-align: center;
-  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: var(--red);
+  background-color: white;
 }
 
 .nav__box {
@@ -211,7 +143,6 @@ nav a.router-link-exact-active {
 }
 
 .nav__links {
-  color: white;
   padding: 0.5rem;
   display: grid;
   grid-auto-flow: column;
@@ -222,6 +153,7 @@ nav a.router-link-exact-active {
 }
 
 .nav__link {
+  color: white;
   background-color: hsla(0, 0%, 0%, 1);
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
@@ -230,16 +162,15 @@ nav a.router-link-exact-active {
   font-family: "Tahoma";
   text-align: center;
   text-decoration: none;
+  border-bottom: 0.3rem solid transparent;
 }
 
 .nav__link:hover {
-  background-color: var(--grey);
-  color: hsla(0, 0%, 0%, 1);
   border-bottom: 0.3rem solid white;
 }
 
-.link__box {
-  border-bottom: 0.3rem solid transparent;
+.nav__link.router-link-exact-active {
+  border-bottom: 0.3rem solid var(--green);
 }
 
 .nav__data {
@@ -258,17 +189,6 @@ nav a.router-link-exact-active {
   color: white;
   padding: 0rem;
   grid-gap: 0 1rem;
-  display: grid;
-  grid-auto-flow: column;
-  place-items: center;
-  justify-content: space-around;
-}
-
-.data__panel {
-  color: white;
-  background-color: black;
-  padding: 0.3rem;
-  grid-gap: 1rem;
   display: grid;
   grid-auto-flow: column;
   place-items: center;
@@ -294,7 +214,6 @@ nav a.router-link-exact-active {
 .logout {
   background-color: var(--red);
   color: white;
-  border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
   font-weight: 700;
@@ -302,25 +221,38 @@ nav a.router-link-exact-active {
   text-align: center;
   text-decoration: none;
 }
+
+.logout:hover {
+  color: var(--red);
+  background-color: white;
+}
+
 .data__button {
-  background-color: hsla(22, 50%, 48%, 1);
+  border: 0.1rem solid hsla(22, 50%, 48%, 1);
+  background-color: black;
   font-size: 1rem;
-  padding: 0.2rem;
+  font-weight: 400;
+  padding: 0.5rem 0.3rem;
   color: white;
   cursor: pointer;
 }
+
+.data__button:hover {
+  color: hsla(22, 50%, 48%, 1);
+  background-color: white;
+}
+
 .dash__email {
-  width: 100%;
-  background-color: hsla(22, 50%, 48%, 1);
+  background-color: black;
+  font-weight: 800;
   font-size: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.3rem;
   color: white;
 }
 .dash__funds {
-  width: 100%;
-  background-color: hsla(22, 50%, 48%, 1);
+  color: var(--green);
+  font-weight: 900;
   font-size: 1rem;
-  padding: 0.5rem;
-  color: white;
+  padding: 0.5rem 0.3rem;
 }
 </style>
