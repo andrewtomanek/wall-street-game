@@ -362,7 +362,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import LoginBoard from "./LoginBoard.vue";
 import DataBoard from "./DataBoard.vue";
 export default {
@@ -384,17 +383,18 @@ export default {
   },
   methods: {
     getForex() {
-      Vue.http
-        .get(
-          `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
-            this.from_currency
-          }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
-        )
+      fetch(
+        `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
+          this.from_currency
+        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
+      )
+        .then(response => response.json())
         .then(data => {
+          console.log(data);
           this.forex =
-            data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+            data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+          return this.forex;
         });
-      return this.forex;
     }
   }
 };

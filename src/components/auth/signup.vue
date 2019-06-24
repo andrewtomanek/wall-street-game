@@ -110,7 +110,7 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
-  background-color: hsla(0, 0%, 95%, 1);
+  background-color: hsla(0, 0%, 90%, 1);
   padding: 0.1rem 2rem 0.5rem;
   border: 0.2rem solid white;
 }

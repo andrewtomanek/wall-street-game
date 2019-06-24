@@ -67,7 +67,8 @@ export default {
 
 .stock__label {
   padding: 0.3rem;
-  background: hsla(0, 0%, 95%, 1);
+  color: hsla(0, 0%, 95%, 1);
+  font-weight: 800;
 }
 
 .stock__label-name {

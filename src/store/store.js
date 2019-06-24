@@ -114,19 +114,17 @@ export default new Vuex.Store({
     },
     initStocks: ({ commit }) => {
       for (let item of stocks) {
-        Vue.http
-          .get(
-            `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${
-              item.symbol
-            }&apikey=KFUX4FTWY91NEYKL`
-          )
-          .then(data => {
-            if (data.status === 200) return;
-            let currentPrice = data.body["Global Quote"]["05. price"];
-            if (currentPrice) {
-              item.price = +currentPrice;
-            }
-          });
+        fetch(
+          `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${
+            item.symbol
+          }&apikey=KFUX4FTWY91NEYKL`
+        ).then(data => {
+          if (data.status === 200) return;
+          let currentPrice = data.body["Global Quote"]["05. price"];
+          if (currentPrice) {
+            item.price = +currentPrice;
+          }
+        });
       }
       commit("setStocks", stocks);
     },
@@ -141,20 +139,18 @@ export default new Vuex.Store({
     },
     initCurrencies: ({ commit }) => {
       for (let item of currencies) {
-        Vue.http
-          .get(
-            `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${
-              item.name
-            }&apikey=KFUX4FTWY91NEYKL`
-          )
-          .then(data => {
-            if (data.status === 200) return;
-            let rateData =
-              data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-            if (rateData) {
-              item.rate = +rateData;
-            }
-          });
+        fetch(
+          `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${
+            item.name
+          }&apikey=KFUX4FTWY91NEYKL`
+        ).then(data => {
+          if (data.status === 200) return;
+          let rateData =
+            data.body["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+          if (rateData) {
+            item.rate = +rateData;
+          }
+        });
       }
       commit("setCurrencies", currencies);
     },
@@ -163,14 +159,16 @@ export default new Vuex.Store({
     },
     uploadData({ state }, data) {
       const saveName = state.email.slice(0, -4);
-      Vue.http.put(`data/${saveName}.json?auth=${state.idToken}`, data);
+      globalAxios.put(`data/${saveName}.json?auth=${state.idToken}`, data);
     },
     downloadData({ commit, state }) {
       if (!state.email) return;
       const loadName = state.email.slice(0, -4);
-      Vue.http
+      globalAxios
         .get(`data/${loadName}.json?auth=${state.idToken}`)
-        .then(response => response.json())
+        .then(response => {
+          return response.data;
+        })
         .then(data => {
           if (data) {
             const currencies = data.currencies;

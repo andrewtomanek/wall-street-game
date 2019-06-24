@@ -3,16 +3,12 @@ import App from "./App.vue";
 import axios from "axios";
 import VueRouter from "vue-router";
 import Vuelidate from "vuelidate";
-import VueResource from "vue-resource";
 
 import { routes } from "./router";
 import store from "./store/store";
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
-Vue.use(VueResource);
-
-Vue.http.options.root = "https://valid-trader.firebaseio.com/";
 
 Vue.filter("currency", value => {
   return "$" + value.toLocaleString();

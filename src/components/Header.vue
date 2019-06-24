@@ -9,28 +9,24 @@
           to="/portfolio"
           class="nav__link"
           activeClass="active"
-          tag="div"
+          tag="a"
           >Portfolio</router-link
         >
-        <router-link
-          to="/stocks"
-          class="nav__link"
-          activeClass="active"
-          tag="div"
+        <router-link to="/stocks" class="nav__link" activeClass="active" tag="a"
           >Stocks</router-link
         >
         <router-link
           to="/currenciescart"
           class="nav__link"
           activeClass="active"
-          tag="div"
+          tag="a"
           >Cart</router-link
         >
         <router-link
           to="/currencies"
           class="nav__link"
           activeClass="active"
-          tag="div"
+          tag="a"
           >Currencies</router-link
         >
       </div>
@@ -96,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-#header {
+header {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
