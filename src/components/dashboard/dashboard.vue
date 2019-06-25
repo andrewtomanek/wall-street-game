@@ -386,7 +386,9 @@ export default {
       fetch(
         `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${
           this.from_currency
-        }&to_currency=${this.to_currency}&apikey=KFUX4FTWY91NEYKL`
+        }&to_currency=${this.to_currency}&apikey=${
+          process.env.VUE_APP_ALPHAVANTAGE_KEY
+        }`
       )
         .then(response => response.json())
         .then(data => {

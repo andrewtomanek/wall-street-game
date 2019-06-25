@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Wallstreet game</h1>
+    <h1>Wall Street Game</h1>
     <p>Sign in or sign up to save your data</p>
     <div class="router__box">
       <router-link class="router__link" to="/signup">Sign Up</router-link>

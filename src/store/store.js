@@ -117,7 +117,7 @@ export default new Vuex.Store({
         fetch(
           `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${
             item.symbol
-          }&apikey=KFUX4FTWY91NEYKL`
+          }&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
         ).then(data => {
           if (data.status === 200) return;
           let currentPrice = data.body["Global Quote"]["05. price"];
@@ -142,7 +142,7 @@ export default new Vuex.Store({
         fetch(
           `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${
             item.name
-          }&apikey=KFUX4FTWY91NEYKL`
+          }&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
         ).then(data => {
           if (data.status === 200) return;
           let rateData =
