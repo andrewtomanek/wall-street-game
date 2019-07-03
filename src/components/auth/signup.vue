@@ -174,7 +174,7 @@ export default {
   font-weight: 600;
   padding: 0.3rem;
   border: 0.2rem solid white;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 

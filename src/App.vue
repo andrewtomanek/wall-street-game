@@ -37,6 +37,11 @@ body {
   margin: 0;
   padding: 0;
   background-color: hsla(0, 0%, 90%, 1);
+  font-family: "Nunito Sans", sans-serif;
+}
+
+button {
+  font-family: "Lato", sans-serif;
 }
 
 .trader__container {

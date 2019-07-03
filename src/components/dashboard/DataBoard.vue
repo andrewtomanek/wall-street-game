@@ -82,19 +82,19 @@ export default {
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
 }
 
 .dashboard__name {
   width: 25vw;
-  color: white;
+  color: whitesmoke;
   font-size: 1rem;
   padding: 0.5rem;
 }
 
 .dashboard__rate {
   width: 100%;
-  color: white;
+  color: whitesmoke;
   font-size: 1rem;
   padding: 0.5rem;
 }

@@ -443,7 +443,7 @@ export default {
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
 }
 
 .dash__currency-controls {
@@ -458,7 +458,7 @@ export default {
   font-size: 1rem;
   padding: 0.5rem;
   margin: 1rem;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -469,7 +469,7 @@ export default {
   font-size: 1rem;
   font-weight: 500;
   padding: 0.3rem;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -479,7 +479,7 @@ export default {
   font-size: 1rem;
   padding: 0.3rem;
   border: 0.5rem ridge white;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 </style>

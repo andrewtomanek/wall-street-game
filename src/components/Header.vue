@@ -105,6 +105,7 @@ nav {
   justify-content: space-around;
   background-color: hsla(0, 0%, 0%, 1);
   padding: 0 2rem;
+  font-family: "Lato", sans-serif;
 }
 
 .nav__header {
@@ -120,7 +121,7 @@ nav {
 
 .navbar-brand {
   background-color: var(--red);
-  color: white;
+  color: whitesmoke;
 }
 
 .navbar-brand:hover {
@@ -149,7 +150,7 @@ nav {
 }
 
 .nav__link {
-  color: white;
+  color: whitesmoke;
   background-color: hsla(0, 0%, 0%, 1);
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
@@ -171,7 +172,7 @@ nav {
 
 .nav__data {
   background-color: var(--red);
-  color: white;
+  color: whitesmoke;
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
@@ -182,7 +183,7 @@ nav {
 }
 
 .nav__panel {
-  color: white;
+  color: whitesmoke;
   padding: 0rem;
   grid-gap: 0 1rem;
   display: grid;
@@ -209,7 +210,7 @@ nav {
 
 .logout {
   background-color: var(--red);
-  color: white;
+  color: whitesmoke;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
   font-weight: 700;
@@ -229,7 +230,7 @@ nav {
   font-size: 1rem;
   font-weight: 400;
   padding: 0.5rem 0.3rem;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -243,7 +244,7 @@ nav {
   font-weight: 800;
   font-size: 1rem;
   padding: 0.5rem 0.3rem;
-  color: white;
+  color: whitesmoke;
 }
 .dash__funds {
   color: var(--green);

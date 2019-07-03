@@ -41,7 +41,7 @@ p {
   font-weight: 600;
   padding: 0.5rem;
   border: 0.4rem solid black;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 

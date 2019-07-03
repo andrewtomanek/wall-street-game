@@ -78,7 +78,7 @@ export default {
   font-size: 1rem;
   font-weight: 800;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
 }
 
 .stock__symbol {
@@ -87,7 +87,7 @@ export default {
   font-size: 1rem;
   font-weight: 800;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
 }
 
 .stock__price {
@@ -96,12 +96,12 @@ export default {
   font-size: 1rem;
   font-weight: 700;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
 }
 
 .stock__quantity {
   width: 100%;
-  color: white;
+  color: whitesmoke;
   font-weight: 700;
 
   font-size: 1rem;
@@ -113,7 +113,7 @@ export default {
   background-color: black;
   font-size: 1rem;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
   cursor: pointer;
 }
 
@@ -123,7 +123,7 @@ export default {
   font-size: 1rem;
   font-weight: 900;
   padding: 0.5rem;
-  color: white;
+  color: whitesmoke;
   border: 0.3rem solid var(--grey);
   cursor: pointer;
 }
