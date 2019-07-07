@@ -63,8 +63,8 @@ Get current currency exchange rates. Buy and sell stocks and FOREX.
 
 andrewtomanek - andrewtomanek@gmail.com
 
-[https://github.com/andrewtomanek/wall-street-game](https://github.com/dbader/)
+[https://github.com/andrewtomanek/wall-street-game](https://github.com/andrewtomanek/wall-street-game)
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
