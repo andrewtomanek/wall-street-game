@@ -9,12 +9,13 @@
 
 <br />
 
-> Financial markets trading game.
-> <br />
+Financial markets trading game.
+<br />
+<br />
+<a href="https://github.com/andrewtomanek/wall-street-game">
+<img src="public\currency.png" alt="Logo" width="80%" height="auto">
+</a>
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
 <br />
 
 Fetch data from currency and stock API with Axios.<br />
@@ -25,11 +26,6 @@ Financial data from Alphavantage.<br />
 Data storage in firebase.<br />
 
 ## Usage example
-
-<br />
-  <a href="https://github.com/andrewtomanek/wall-street-game">
-    <img src="public\currency.png" alt="Logo" width="80%" height="auto">
-  </a>
 
   <br />
 
@@ -72,10 +68,3 @@ andrewtomanek - andrewtomanek@gmail.com
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
