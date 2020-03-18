@@ -389,18 +389,6 @@ export default {
 </script>
 
 <style scoped>
-.dashboard {
-  display: grid;
-  grid-gap: 0.1rem 0.5rem;
-  justify-items: center;
-  align-items: center;
-  justify-content: space-evenly;
-  align-content: space-around;
-  width: 100vw;
-  background: hsla(0, 0%, 95%, 1);
-  color: hsla(0, 0%, 0%, 1);
-}
-
 .dash__currency-wrap {
   display: grid;
   grid-auto-flow: row;

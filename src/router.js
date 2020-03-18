@@ -3,12 +3,12 @@ import Portfolio from "./components/portfolio/Portfolio.vue";
 import Stocks from "./components/stocks/Stocks.vue";
 import CurrenciesCart from "./components/currencycart/CurrenciesCart.vue";
 import Currencies from "./components/currencies/Currencies.vue";
-import DashboardPage from "./components/dashboard/Dashboard.vue";
+import Dashboard from "./components/dashboard/Dashboard.vue";
 import SignupPage from "./components/auth/signup.vue";
 import SigninPage from "./components/auth/signin.vue";
 
 export const routes = [
-  { path: "/", name: "dashboard", component: DashboardPage },
+  { path: "/", name: "dashboard", component: Dashboard },
   {
     path: "/portfolio",
     component: Portfolio,

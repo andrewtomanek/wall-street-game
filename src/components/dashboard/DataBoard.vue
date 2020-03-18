@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard__container">
     <H2>Purchased stock </H2>
-
     <div
       class="dashboard__display-box"
       v-for="stockItem in stocks"
