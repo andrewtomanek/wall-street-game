@@ -1,62 +1,22 @@
 <template>
   <header>
     <nav class="nav__box">
-      <div v-if="auth" class="nav__panel">
-        <router-link to="/" class="navbar-brand nav__link"
-          >Dashboard</router-link
-        >
-        <router-link
-          to="/portfolio"
-          class="nav__link"
-          activeClass="active"
-          tag="a"
-          >Portfolio</router-link
-        >
-        <router-link to="/stocks" class="nav__link" activeClass="active" tag="a"
-          >Stocks</router-link
-        >
-        <router-link
-          to="/currenciescart"
-          class="nav__link"
-          activeClass="active"
-          tag="a"
-          >Cart</router-link
-        >
-        <router-link
-          to="/currencies"
-          class="nav__link"
-          activeClass="active"
-          tag="a"
-          >Currencies</router-link
-        >
-      </div>
-      <div class="nav__links">
-        <router-link v-if="!auth" to="/signup" class="router__link"
-          >Sign Up</router-link
-        >
-        <router-link v-if="!auth" to="/signin" class="router__link">
-          Sign In</router-link
-        >
-        <button v-if="auth" class="data__button" @click="saveData">
-          Save Data
-        </button>
-        <button v-if="auth" class="data__button" @click="loadData">
-          Load Data
-        </button>
-        <span v-if="auth" class="dash__funds"
-          >Funds: {{ funds.toFixed(2) }}$</span
-        >
-        <span class="dash__email" v-if="auth && email"> {{ email }}</span>
-        <button v-if="auth" @click="onLogout" class="logout">Logout</button>
-      </div>
+      <nav-panel></nav-panel>
+      <auth-panel></auth-panel>
     </nav>
   </header>
 </template>
 
 <script>
+import NavigationPanel from "./NavigationPanel.vue";
+import AuthorizationPanel from "./AuthorizationPanel.vue";
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    navPanel: NavigationPanel,
+    authPanel: AuthorizationPanel
+  },
   data() {
     return {
       isDropdownOpen: true
@@ -112,27 +72,6 @@ nav {
   font-family: "Lato", sans-serif;
 }
 
-.nav__header {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-auto-flow: row;
-  place-items: center;
-  justify-content: space-around;
-  width: 100%;
-  overflow: hidden;
-}
-
-.navbar-brand {
-  background-color: var(--red);
-  color: whitesmoke;
-}
-
-.navbar-brand:hover {
-  color: var(--red);
-  background-color: white;
-}
-
 .nav__box {
   padding: 0rem;
   display: flex;
@@ -141,139 +80,5 @@ nav {
   background-color: hsla(0, 0%, 0%, 1);
   padding: 0 1rem;
   width: 100vw;
-}
-
-.nav__links {
-  padding: 0.5rem;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  place-items: center;
-  justify-content: space-around;
-  overflow: hidden;
-}
-
-.nav__link {
-  color: whitesmoke;
-  background-color: hsla(0, 0%, 0%, 1);
-  border-bottom: 0.5rem solid transparent;
-  padding: 0.5rem 0.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: "Tahoma";
-  text-align: center;
-  text-decoration: none;
-  border-bottom: 0.3rem solid transparent;
-}
-
-.nav__link:hover {
-  border-bottom: 0.3rem solid white;
-}
-
-.nav__link.router-link-exact-active {
-  border-bottom: 0.3rem solid var(--green);
-}
-
-.nav__data {
-  background-color: var(--red);
-  color: whitesmoke;
-  border-bottom: 0.5rem solid transparent;
-  padding: 0.5rem 0.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: "Tahoma";
-  text-align: center;
-  text-decoration: none;
-}
-
-.nav__panel {
-  color: whitesmoke;
-  padding: 0rem;
-  grid-gap: 0 1rem;
-  display: grid;
-  grid-auto-flow: column;
-  place-items: center;
-  justify-content: space-around;
-}
-
-.nav__menu {
-  margin: 0;
-  padding: 0.5rem;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  place-items: center;
-  justify-content: space-around;
-  width: 100%;
-  list-style: none;
-}
-
-.nav__menu-item {
-  border-bottom: 0.5rem solid transparent;
-}
-
-.logout {
-  border: 0.1rem solid var(--red);
-  background-color: black;
-  color: var(--red);
-  padding: 0.5rem 0.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: "Tahoma";
-  text-align: center;
-  text-decoration: none;
-}
-
-.logout:hover {
-  color: var(--red);
-  background-color: white;
-}
-
-.data__button {
-  border: 0.1rem solid hsla(22, 50%, 48%, 1);
-  background-color: black;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.5rem 0.3rem;
-  color: hsla(22, 50%, 48%, 1);
-  cursor: pointer;
-}
-
-.data__button:hover {
-  color: hsla(22, 50%, 48%, 1);
-  background-color: white;
-}
-
-.dash__email {
-  background-color: black;
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 0.5rem 0.3rem;
-  color: whitesmoke;
-}
-.dash__funds {
-  color: var(--green);
-  font-weight: 900;
-  font-size: 1rem;
-  padding: 0.5rem 0.3rem;
-}
-
-.router__link {
-  text-decoration: none;
-  background-color: var(--green);
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 0.5rem;
-  border: 0.4rem solid black;
-  color: whitesmoke;
-  cursor: pointer;
-}
-
-.router__link:hover,
-.router__link:active {
-  color: var(--green);
-  background-color: white;
-  border: 0.4rem solid var(--green);
 }
 </style>

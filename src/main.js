@@ -14,9 +14,7 @@ Vue.filter("currency", value => {
   return "$" + value.toLocaleString();
 });
 
-//axios.defaults.baseURL = "https://valid-trader.firebaseio.com/";
 axios.defaults.baseURL = process.env.VUE_APP_FIREBASE_DATABASE;
-// axios.defaults.headers.common['Authorization'] = 'fasfdsa'
 axios.defaults.headers.get["Accepts"] = "application/json";
 
 const reqInterceptor = axios.interceptors.request.use(config => {
