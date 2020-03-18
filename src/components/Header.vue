@@ -31,8 +31,12 @@
         >
       </div>
       <div class="nav__links">
-        <router-link v-if="!auth" to="/signup">Sign Up</router-link>
-        <router-link v-if="!auth" to="/signin">Sign In</router-link>
+        <router-link v-if="!auth" to="/signup" class="router__link"
+          >Sign Up</router-link
+        >
+        <router-link v-if="!auth" to="/signin" class="router__link">
+          Sign In</router-link
+        >
         <button v-if="auth" class="data__button" @click="saveData">
           Save Data
         </button>
@@ -155,7 +159,7 @@ nav {
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   font-family: "Tahoma";
   text-align: center;
   text-decoration: none;
@@ -176,7 +180,7 @@ nav {
   border-bottom: 0.5rem solid transparent;
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   font-family: "Tahoma";
   text-align: center;
   text-decoration: none;
@@ -209,11 +213,12 @@ nav {
 }
 
 .logout {
-  background-color: var(--red);
-  color: whitesmoke;
+  border: 0.1rem solid var(--red);
+  background-color: black;
+  color: var(--red);
   padding: 0.5rem 0.3rem;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   font-family: "Tahoma";
   text-align: center;
   text-decoration: none;
@@ -228,9 +233,9 @@ nav {
   border: 0.1rem solid hsla(22, 50%, 48%, 1);
   background-color: black;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   padding: 0.5rem 0.3rem;
-  color: whitesmoke;
+  color: hsla(22, 50%, 48%, 1);
   cursor: pointer;
 }
 
@@ -251,5 +256,24 @@ nav {
   font-weight: 900;
   font-size: 1rem;
   padding: 0.5rem 0.3rem;
+}
+
+.router__link {
+  text-decoration: none;
+  background-color: var(--green);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border: 0.4rem solid black;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.router__link:hover,
+.router__link:active {
+  color: var(--green);
+  background-color: white;
+  border: 0.4rem solid var(--green);
 }
 </style>

@@ -26,8 +26,8 @@ export default {
 
 <style>
 :root {
-  --green: hsla(136, 100%, 54%, 1);
-  --red: hsla(359, 100%, 48%, 1);
+  --green: hsla(136, 70%, 50%, 1);
+  --red: hsla(359, 70%, 50%, 1);
   --grey: hsla(0, 25%, 95%, 1);
 
   font-size: calc(1vw + 1vh + 0.5vmin);
