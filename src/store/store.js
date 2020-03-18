@@ -115,9 +115,7 @@ export default new Vuex.Store({
     initStocks: ({ commit }) => {
       for (let item of stocks) {
         fetch(
-          `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${
-            item.symbol
-          }&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
+          `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${item.symbol}&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
         ).then(data => {
           if (data.status === 200) return;
           let currentPrice = data.body["Global Quote"]["05. price"];
@@ -140,9 +138,7 @@ export default new Vuex.Store({
     initCurrencies: ({ commit }) => {
       for (let item of currencies) {
         fetch(
-          `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${
-            item.name
-          }&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
+          `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=${item.name}&apikey=${process.env.VUE_APP_ALPHAVANTAGE_KEY}`
         ).then(data => {
           if (data.status === 200) return;
           let rateData =
@@ -192,7 +188,7 @@ export default new Vuex.Store({
     },
     signup({ commit, dispatch }, authData) {
       axios
-        .post("/signupNewUser?key=AIzaSyB_dlI7vt_NSbRrpfbqnDai4Ljz-LI4KYk", {
+        .post(`/signupNewUser?key=${process.env.VUE_APP_FIREBASE_KEY}`, {
           email: authData.email,
           password: authData.password,
           returnSecureToken: true
@@ -220,7 +216,7 @@ export default new Vuex.Store({
     },
     login({ commit, dispatch }, authData) {
       axios
-        .post("/verifyPassword?key=AIzaSyB_dlI7vt_NSbRrpfbqnDai4Ljz-LI4KYk", {
+        .post(`/verifyPassword?key=${process.env.VUE_APP_FIREBASE_KEY}`, {
           email: authData.email,
           password: authData.password,
           returnSecureToken: true
