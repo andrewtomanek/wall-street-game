@@ -378,7 +378,6 @@ export default {
       )
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           this.forex =
             data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
           return this.forex;
